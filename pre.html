@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/logo.png">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="POS System">
+    <meta name="keywords" content="nipun dhananjaya,software engineer, portfolio, eden garden, java,mysql,html">
+    <meta name="author" content="Nipun Dhananjaya">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=K2D&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=K2D&family=Stylish&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/index-styles.css">
+    <link rel="stylesheet" href="css/signup-styles.css">
+    <link rel="stylesheet" href="css/customer-styles.css">
+    <link rel="stylesheet" href="css/order-styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<!----------------cuatomer section----------------->
+<!-- Customer Start-->
+<main class="container-fluid" id="customer-section">
+    <!-- Customer Header Start -->
+    <div class="container d-flex flex-grow-1 flex-column justify-content-center">
+        <div class="position-relative d-inline-block mt-3 mt-lg-4 mt-md-4">
+            <h2 id="H1-3" style="font-family: 'Arial Rounded MT Bold',serif"><i class="bi bi-people"></i> Customer
+            </h2>
+        </div>
+    </div>
+    <!-- Customer Header End -->
+
+    <!-- Customer Header Section Start -->
+    <div class="container d-flex flex-grow-1 flex-column sectionBorder justify-content-center"  style="background-color: transparent">
+
+        <!-- Customer Details Section Start -->
+        <div class="row justify-content-around " style="height: max-content">
+
+
+
+            <!-- Customer Details Search Section Start -->
+            <div class="col-10 col-md-6 col-lg-5 p-0 mt-3 rounded-3 sectionBorder justify-content-md-center" style="background-color: white">
+                <!--            <div class="col-10 col-md-5 col-lg-5 p-0 mt-2 rounded-3 sectionBorder" style="background-color: white">-->
+
+                <form action="customer" id="customerForm">
+
+                    <div class="row mt-1">
+                        <div class="mb-3 ms-3 me-1 mt-3 col-10 col-md-5 col-lg-5 ">
+                            <label class="fw-bold" for="txtCusName">Customer Name :</label>
+                            <input class="form-control" id="txtCusName" type="text">
+                            <span class="control-error"></span>
+
+                        </div>
+
+                        <div class="mb-3 ms-1 me-3 mt-3 col-10 col-md-5 col-lg-6 ">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    MALE
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    FEMALE
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 ms-3 me-1 mt-3 col-10 col-md-5 col-lg-5 ">
+                            <label class="fw-bold" for="level">Level :</label>
+                            <select aria-label="Default select example" class="form-select border-dark" id="level">
+                                <option value="GOLD">GOLD</option>
+                                <option value="SILVER">SILVER</option>
+                                <option value="BRONZE">BRONZE</option>
+                                <option value="NEW">NEW</option>
+                            </select>
+
+                            <label class="fw-bold" for="level">point :</label>
+                            <select aria-label="Default select example" class="form-select border-red" id="point">
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                            </select>
+
+                        </div>
+                        <div class="mb-3 ms-3 me-1 mt-3 col-10 col-md-5 col-lg-5 ">
+                            <label class="fw-bold" for="contact">Contact :</label>
+                            <input class="form-control" id="contact" type="text">
+                            <span class="control-error"></span>
+                        </div>
+
+                    </div>
+                    <div class="row mt-1">
+                        <div class="mb-3 ms-3 me-1 mt-3 col-5 col-md-5 col-lg-5 ">
+                            <label class="fw-bold" for="JoinDate">Join Date :</label>
+                            <input class="form-control" id="JoinDate" type="date">
+                            <span class="control-error"></span>
+                        </div>
+
+                        <div class="mb-3 ms-3 me-1 mt-3 col-10 col-md-5 col-lg-5 ">
+                            <img id="cusIcon" src="assets/image/cusIcon.png" alt="customerICon">
+                        </div>
+
+                        <!--                        <div class="mb-3 ms-3 me-1 mt-3 col-10 col-md-5 col-lg-5 ">-->
+                        <!--                            <label class="fw-bold" for="level">Level :</label>-->
+                        <!--                            <select aria-label="Default select example" class="form-select border-dark" id="point">-->
+                        <!--                            </select>-->
+                        <!--                        </div>-->
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="mb-3 ms-3 me-1 mt-1 col-10 col-md-5 col-lg-5 ">
+                            <label class="fw-bold" for="dob">Date Of Birth :</label>
+                            <input class="form-control" id="dob" type="date">
+                            <span class="control-error"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3 ms-3 me-3 mt-3 ">
+                        <label class="fw-bold" for="address">Address :</label>
+                        <input class="form-control" id="address" type="text">
+                        <span class="control-error"></span>
+                    </div>
+
+                    <div class="mb-3 ms-3 me-3 mt-3 ">
+                        <label class="fw-bold" for="email">Email :</label>
+                        <input class="form-control" id="email" type="text">
+                        <span class="control-error"></span>
+                    </div>
+
+                </form>
+
+
+            </div>
+            <!-- Customer Details Search Section Start -->
+            <!--            <div class="col-10 col-md-6 col-lg-5 p-0 mt-5 rounded-3 sectionBorder"-->
+            <div class="col-10 col-md-5 col-lg-5 p-0 mt-5 rounded-3 sectionBorder"
+                 style="background-color: white;height: max-content ">
+                <h4 class="text-center p-2 text-light rounded-3" style="background: #16A085">Manage Customer</h4>
+
+                <div class="mb-3 ms-3 me-3 mt-3 ">
+                    <label class="fw-bold" for="searchCusId">Search Customer :</label>
+                    <input class="form-control me-2 mt-2" id="searchCusId" placeholder="Input Name/NIC/Tp Here"
+                           type="search">
+                </div>
+                <div class="m-4">
+                    <button class="btn btn-success mt-2 m-2" id="btnSaveCustomer" type="button">+ New Customer
+                    </button>
+
+                    <button class="btn btn-warning mt-2 m-2" id="btnUpdateCustomer" type="button">Update Customer
+                    </button>
+
+                    <button class="btn btn-danger mt-2 m-2" id="btnDeleteCustomer" type="button">Delete Customer
+                    </button>
+
+                </div>
+            </div>
+            <!-- Customer Details Search Section End -->
+
+            <!-- Customer Details Search Section End -->
+
+        </div>
+        <!-- Customer Details Section End -->
+
+        <!-- View Customer Details Table Start -->
+        <div class="row mt-1 mt-md-2 mt-lg-4 justify-content-center" style="height: 600px;">
+            <div class="col-11 justify-content-around sectionBorder" style="height: 290px; ">
+                <div class="customerTableDiv overflow-auto" style="height: 270px;">
+                    <table class="table table-success table-striped table-bordered table-hover " id="mytable">
+                        <thead class="text-light table-dark text-center  table-bordered sticky-top">
+                        <tr id="ben">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Join date</th>
+                            <th>Level</th>
+                            <th>Total points</th>
+                            <th>Dob</th>
+                            <th>Addredd</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody id="customerTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- View Customer Details Table End -->
+    </div>
+</main>
+<!-- Customer End-->
+
+<!--profile-------------------------------------------------------------------------------------------------------------->
+<!--<div class="profile" id="profile">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <div class="container mt-5">
+                    <button type="button" class="btn btn-outline-primary">
+                        <img src="assets/images/icons8-admin-94.png" height="150px" width="150px" alt="Image" class="mr-2">
+                        <br>
+                        Admin Login
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="container mt-5">
+                    <button type="button" class="btn btn-outline-primary">
+                        <img src="assets/images/icons8-user-94.png" height="150px" width="150px" alt="Image" class="mr-2">
+                        <br>
+                        User Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--login-------------------------------------------------------------------------------------------------------------->
+<!--<div class="login" id="login">
+    <h1 class="text-center fs-1 fw-bold">Login</h1>
+    <img src="./assets/images/kisspng-login-affiliate-marketing-email-password-icon-gold-keys-and-locks-5a94a582489de7.2426834315196911382975.png" class="img-fluid" alt="login" id="lockImg">
+    <div class="container">
+        <div class="form-floating mb-3 col-9" id="text-float-one">
+            <input type="email" class="form-control email-in-login" id="floatingInputLogin" placeholder="name@example.com">
+            <label for="floatingInputLogin">Email address</label>
+        </div>
+        <div class="form-floating  col-9" id="text-float-two">
+            <input type="password" class="form-control pw-in-login" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="container-md position-absolute top-50 start-50 translate-middle">
+            <button type="button" class="btn btn-primary col-9 login-btn" id="login-btn">Login</button>
+            <h1 id="or-one" class="text-center fs-1 fw-bold or-txt">Or</h1>
+            <button type="button" class="btn btn-danger col-9 signup-btn" id="signup-in-login">Sign Up</button>
+        </div>
+    </div>
+</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--SignUp------------------------------------------------------------------------------------------------------------->
+<!--<div class="signup-window" id="signup-window">
+    <div class="signup">
+        <h1 class="text-center fs-1 fw-bold">Sign Up</h1>
+        <div class="container">
+            <div class="form-floating mb-3 col-9" id="text-float-three">
+                <input type="email" class="form-control" id="floatingInputSignup" placeholder="name@example.com">
+                <label for="floatingInputSignup">Email address</label>
+            </div>
+            <div class="form-floating mb-3 col-9" id="text-float-four">
+                <input type="password" class="form-control" id="floatingPassword-1" placeholder="Password">
+                <label for="floatingPassword-1">Password</label>
+            </div>
+            <div class="form-floating mb-3 col-9" id="text-float-five">
+                <input type="password" class="form-control" id="floatingPassword-2" placeholder="Password">
+                <label for="floatingPassword-2">Re Enter Password</label>
+            </div>
+            <div class="container-md position-absolute top-50 start-50 translate-middle">
+                <button type="button" class="btn btn-primary col-9 signup-btn" id="signup-btn">Sign Up</button>
+                <h1 id="or-two" class="text-center fs-1 fw-bold or-txt">Or</h1>
+                <button type="button" class="btn btn-danger col-9 already-have-btn" id="already-have-btn">Already Have An Account</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--Customer----------------------------------------------------------------------------------------------------------->
+<!--<div class="customer-window" id="customer-window">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0">
+            <div class="container-fluid p-0" id="">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="customer-in-cus">
+                            <a class="nav-link active text-success" aria-current="page" >Customer</a>
+                        </li>
+                        <li class="nav-item" id="store-in-cus">
+                            <a class="nav-link active text-success" aria-current="page" >Store</a>
+                        </li>
+                        <li class="nav-item" id="order-in-cus">
+                            <a class="nav-link active text-success" aria-current="page" >Order</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <img src="./assets/images/logo.png" class="img-fluid logo-img m-2" alt="login" >
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <img src="./assets/images/customers-icon-12.png" class="img-fluid m-2" alt="login" id="customer-img">
+    <p class="h2 text-primary">Customer</p>
+    <div class="background p-3" id="customer-background">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="customer-name">Name :</label>
+                        <input type="text" class="form-control border border-danger" id="customer-name" placeholder="" class="input">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="customer-nic">NIC :</label>
+                        <input type="text" class="form-control border border-danger" id="customer-nic" placeholder="" class="input">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="customer-address">Address :</label>
+                        <input type="text" class="form-control border border-danger" id="customer-address" placeholder="" class="input">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="customer-sal">Contact :</label>
+                        <input type="text" class="form-control border border-danger" id="customer-sal" placeholder="" class="input">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="form-group d-flex">
+                        <input type="text" class="form-control border border-danger" id="customer-search" placeholder="" class="input">
+                        <button class="btn btn-outline-success ms-3" type="submit" id="customer-search-btn">Search</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group button-set">
+                        <button id="c-save-btn" type="button" class="btn btn-primary col-3">Save</button>
+                        <button id="c-update-btn" type="button" class="btn btn-success col-3">Update</button>
+                        <button id="c-delete-btn" type="button" class="btn btn-danger col-3">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table table-success table-striped-columns mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">NIC</th>
+                <th scope="col">Address</th>
+                <th scope="col">Contact</th>
+            </tr>
+            </thead>
+            <tbody id="customer-t-body"></tbody>
+        </table>
+    </div>
+</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--Store-------------------------------------------------------------------------------------------------------------->
+<!--<div class="store-window" id="store-window">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0">
+            <div class="container-fluid p-0">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="customer-in-store">
+                            <a class="nav-link active text-success" aria-current="page" >Customer</a>
+                        </li>
+                        <li class="nav-item" id="store-in-store">
+                            <a class="nav-link active text-success" aria-current="page" >Store</a>
+                        </li>
+                        <li class="nav-item" id="order-in-store">
+                            <a class="nav-link active text-success" aria-current="page" >Order</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <img src="./assets/images/logo.png" class="img-fluid logo-img m-2" alt="login">
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <img src="./assets/images/lorrygreen.png" class="img-fluid m-2" alt="login" id="store-img">
+    <p class="h2 text-primary">Store</p>
+    <div class="store-background p-3" id="store-background">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="itm-name">Name :</label>
+                        <input type="text" class="form-control border border-danger" id="itm-name" placeholder="" class="input">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="itm-code">Code :</label>
+                        <input type="text" class="form-control border border-danger" id="itm-code" placeholder="" class="input">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="itm-qty">Quantity :</label>
+                        <input type="text" class="form-control border border-danger" id="itm-qty" placeholder="" class="input">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="itm-price">Price :</label>
+                        <input type="text" class="form-control border border-danger" id="itm-price" placeholder="" class="input">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="form-group d-flex">
+                        <input type="text" class="form-control border border-danger" id="store-search" placeholder="" class="input">
+                        <button class="btn btn-outline-success ms-3" type="submit" id="store-search-btn" >Search</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group button-set">
+                        <button id="itm-save" type="button" class="btn btn-primary col-3">Save</button>
+                        <button id="itm-update" type="button" class="btn btn-success col-3">Update</button>
+                        <button id="itm-delete" type="button" class="btn btn-danger col-3">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table table-success table-striped-columns mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+            <tbody id="itm-tbl-body"></tbody>
+        </table>
+    </div>
+</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--Order-------------------------------------------------------------------------------------------------------------->
+<!--<div class="order-window" id="order-window">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0">
+            <div class="container-fluid p-0">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo04">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="customer-in-ord">
+                            <a class="nav-link active text-success" aria-current="page" >Customer</a>
+                        </li>
+                        <li class="nav-item" id="store-in-ord">
+                            <a class="nav-link active text-success" aria-current="page" >Store</a>
+                        </li>
+                        <li class="nav-item" id="order-in-ord">
+                            <a class="nav-link active text-success" aria-current="page" >Order</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <img src="./assets/images/logo.png" class="img-fluid logo-img m-2" alt="login">
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <img src="./assets/images/imagesbbn-removebg-preview.png" class="img-fluid m-2" alt="login" id="order-img">
+    <p class="h2 text-primary">Order</p>
+    <div class="background p-3" id="order-background">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container-sm p-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ord-id">Order ID :</label>
+                                    <input type="text" class="form-control border border-danger" id="ord-id" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ord-date">Order Date :</label>
+                                    <input type="date" class="form-control border border-danger" id="ord-date" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-id">Customer ID :</label>
+                                    <div class="dropdown">
+                                        <button id="cust-id" class="btn dropdown-toggle border border-danger col-md-12 bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Click Here To Select
+                                        </button>
+                                        <ul id="dropdown-menu-cusID" class="dropdown-menu col-md-12 " aria-labelledby="item-code">
+                                            &lt;!&ndash; Options will be dynamically added here &ndash;&gt;
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-name">Name :</label>
+                                    <input type="text" class="form-control border border-danger" id="cust-name" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-add">Address :</label>
+                                    <input type="text" class="form-control border border-danger" id="cust-add" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-cont">Contact :</label>
+                                    <input type="text" class="form-control border border-danger" id="cust-cont" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="container-sm p-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item-code">Item Code :</label>
+                                    <div class="dropdown">
+                                        <button id="item-code" class="btn dropdown-toggle border border-danger col-md-12 bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Click Here To Select
+                                        </button>
+                                        <ul id="dropdown-menu-itmId" class="dropdown-menu col-md-12 " aria-labelledby="item-code">
+                                            &lt;!&ndash; Options will be dynamically added here &ndash;&gt;
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="itm-desc">Description :</label>
+                                    <input type="text" class="form-control border border-danger" id="itm-desc" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item-price">Price :</label>
+                                    <input type="text" class="form-control border border-danger" id="item-price" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="itm-qty-on-hand">Quantity On Hand :</label>
+                                    <input type="text" class="form-control border border-danger" id="itm-qty-on-hand" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item-qty">Quantity :</label>
+                                    <input type="text" class="form-control border border-danger" id="item-qty" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button id="add-itm-btn" type="button" class="btn btn-danger col-md-12 mt-4">Add Item</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container-sm mt-1 p-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="discount">Discount :</label>
+                                    <input type="text" class="form-control border border-danger" id="discount" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <p class="h2 mt-3">Total :</p>
+                                    <p id="tot" class="h2 mt-3 text-primary-emphasis">0.00 /=</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cash">Cash :</label>
+                                    <input type="text" class="form-control border border-danger" id="cash" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <p class="h2 mt-3">Subtotal :</p>
+                                    <p id="subtot" class="h2 mt-3 text-danger">0.00 /=</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="balance">Balance :</label>
+                                    <input type="text" class="form-control border border-danger" id="balance" placeholder="" class="input">
+                                </div>
+                            </div>
+                            &lt;!&ndash;<div class="col-md-6">
+                                <div class="form-group">
+                                    <button id="purchase" type="button" class="btn btn-success col-md-12 mt-4">Purchase</button>
+                                </div>
+                            </div>&ndash;&gt;
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="purchase" type="button" class="btn btn-primary col-md-12 mt-2">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="update-ord" type="button" class="btn btn-success col-md-12 mt-2">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="delete-ord" type="button" class="btn btn-danger col-md-12 mt-2">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="button" id="all-orders-btn" class="btn btn-secondary col-md-12 mt-2">All Orders</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table table-success table-striped-columns mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Quantity to Buy</th>
+                <th scope="col">Whole Price</th>
+            </tr>
+            </thead>
+            <tbody id="order-item-table-body"></tbody>
+        </table>
+    </div>
+</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--All Orders--------------------------------------------------------------------------------------------------------->
+<!--<div class="all-order-window" id="all-order-window">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0">
+            <div class="container-fluid p-0">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo05">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="customer-in-allOrd">
+                            <a class="nav-link active text-success" aria-current="page" >Customer</a>
+                        </li>
+                        <li class="nav-item" id="store-in-allOrd">
+                            <a class="nav-link active text-success" aria-current="page" >Store</a>
+                        </li>
+                        <li class="nav-item" id="order-in-allOrd">
+                            <a class="nav-link active text-success" aria-current="page" >Order</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <img src="./assets/images/logo.png" class="img-fluid logo-img m-2" alt="login">
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <img src="./assets/images/1041576.png" class="img-fluid m-2" alt="login" id="all-order-img">
+    <p class="h2 text-primary">All Orders</p>
+    <div class="background p-3">
+        <form>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="form-group d-flex">
+                        <input type="text" class="form-control border border-danger" id="all-order-search" placeholder="" class="input">
+                        <button class="btn btn-outline-success ms-3" type="submit" id="ord-search-btn">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table table-success table-striped-columns mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Item</th>
+                <th scope="col">Description</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Name</th>
+            </tr>
+            </thead>
+            <tbody id="all-order-tbl"></tbody>
+        </table>
+    </div>
+</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+<script src="./assets/lib/jquary.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="./controller/customer_controller.js"></script>
+<script type="module" src="./controller/store_controller.js"></script>
+<script type="module" src="./controller/order_controller.js"></script>
+<script type="module" src="./controller/user_controller.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#login").css("display","block");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+        $("#customer-window").css("display","none");
+    });
+    $("#signup-in-login").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","block");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#already-have-btn").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","block");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#customer-in-cus").on('click', () => {
+        $("#customer-window").css("display","block");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#customer-in-store").on('click', () => {
+        $("#customer-window").css("display","block");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#customer-in-ord").on('click', () => {
+        $("#customer-window").css("display","block");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#customer-in-allOrd").on('click', () => {
+        $("#customer-window").css("display","block");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#store-in-cus").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","block");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#store-in-store").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","block");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#store-in-ord").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","block");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#store-in-allOrd").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","block");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","none");
+    });
+    $("#order-in-cus").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","block");
+        $("#all-order-window").css("display","none");
+    });
+    $("#order-in-store").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","block");
+        $("#all-order-window").css("display","none");
+    });
+    $("#order-in-ord").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","block");
+        $("#all-order-window").css("display","none");
+    });
+    $("#order-in-allOrd").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","block");
+        $("#all-order-window").css("display","none");
+    });
+    $("#all-orders-btn").on('click', () => {
+        $("#customer-window").css("display","none");
+        $("#login").css("display","none");
+        $("#signup-window").css("display","none");
+        $("#store-window").css("display","none");
+        $("#order-window").css("display","none");
+        $("#all-order-window").css("display","block");
+    });
+</script>
+</body>
+</html>

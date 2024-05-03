@@ -1,0 +1,52 @@
+.signup-window{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+.signup{
+    height: 80vh;
+    width: 30vw;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 15px;
+    background-image: linear-gradient(to right bottom, #bbb5f4, #ada7f2, #9f9af0, #908dee, #8080ec);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.text-center{
+    font-family: 'K2D', sans-serif;
+    color: #221ef0;
+}
+#text-float-three{
+    top: 30px;
+}
+#text-float-four{
+    top: 45px;
+}
+#text-float-five{
+    top: 60px;
+}
+.signup-btn{
+    position: absolute;
+    top: 100px;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+#or-two{
+    position: absolute;
+    top: 145px;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+.already-have-btn{
+    position: absolute;
+    top: 200px;
+    right: 0;
+    left: 0;
+    margin: auto;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/logo.png">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="POS System">
+    <meta name="keywords" content="nipun dhananjaya,software engineer, portfolio, eden garden, java,mysql,html">
+    <meta name="author" content="Nipun Dhananjaya">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=K2D&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=K2D&family=Stylish&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/login-styles.css">
+    <link rel="stylesheet" href="css/signup-styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<!--SignUp------------------------------------------------------------------------------------------------------------->
+<div class="signup-window" id="signup-window">
+    <div class="signup">
+        <h1 class="text-center fs-1 fw-bold">Admin Sign Up</h1>
+        <div class="container">
+            <div class="form-floating mb-3 col-9" id="text-float-three">
+                <input type="email" class="form-control" id="floatingInputSignup" placeholder="name@example.com">
+                <label for="floatingInputSignup">Email address</label>
+            </div>
+            <div class="form-floating mb-3 col-9" id="text-float-four">
+                <input type="password" class="form-control" id="floatingPassword-1" placeholder="Password">
+                <label for="floatingPassword-1">Password</label>
+            </div>
+            <div class="form-floating mb-3 col-9" id="text-float-five">
+                <input type="password" class="form-control" id="floatingPassword-2" placeholder="Password">
+                <label for="floatingPassword-2">Re Enter Password</label>
+            </div>
+            <div class="container-md position-absolute top-50 start-50 translate-middle">
+                <button type="button" class="btn btn-primary col-9 signup-btn" id="admin-signup-btn">Sign Up</button>
+                <h1 id="or-two" class="text-center fs-1 fw-bold or-txt">Or</h1>
+                <button type="button" class="btn btn-danger col-9 already-have-btn" id="already-have-btn" onclick="window.location.href = './admin_login.html';">Already Have An Account</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+<script src="./assets/lib/jquary.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="./controller/user_controller.js"></script>
+</body>
+</html>

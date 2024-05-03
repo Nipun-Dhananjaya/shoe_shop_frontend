@@ -1,0 +1,61 @@
+.login{
+    height: 80vh;
+    width: 30vw;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 15px;
+    background-image: linear-gradient(to right bottom, #bbb5f4, #ada7f2, #9f9af0, #908dee, #8080ec);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+#lockImg{
+    height: 135px;
+    width: 125px;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+.text-center{
+    font-family: 'K2D', sans-serif;
+    color: #221ef0;
+}
+.form-floating{
+    border: 2px solid red;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+#text-float-one{
+    top: 180px;
+}
+#text-float-two{
+    top: 190px;
+}
+.login-btn{
+    position: absolute;
+    top: 130px;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+#signup-in-login{
+    position: absolute;
+    top: 215px;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+#or-one{
+    position: absolute;
+    top: 165px;
+    right: 0;
+    left: 0;
+    margin: auto;
+}

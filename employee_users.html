@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/logo.png">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="POS System">
+    <meta name="keywords" content="nipun dhananjaya,software engineer, portfolio, eden garden, java,mysql,html">
+    <meta name="author" content="Nipun Dhananjaya">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=K2D&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=K2D&family=Stylish&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/index-styles.css">
+    <link rel="stylesheet" href="css/signup-styles.css">
+    <link rel="stylesheet" href="css/customer-styles.css">
+    <link rel="stylesheet" href="css/order-styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<!--Employee----------------------------------------------------------------------------------------------------------->
+<div class="customer-window" id="customer-window">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0">
+            <div class="container-fluid p-0" id="">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="cursor: pointer">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="customer-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './customer.html';" >Customer</a>
+                        </li>
+                        <li class="nav-item" id="emp-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './employee_users.html';" >Employee</a>
+                        </li>
+                        <li class="nav-item" id="sup-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './suppliers_users.html';" >Suppliers</a>
+                        </li>
+                        <li class="nav-item" id="inventory-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './inventory.html';" >Inventory</a>
+                        </li>
+                        <li class="nav-item" id="sales-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './sales.html';" >Sales</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="img-fluid logo-img m-2" alt="login" >
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <img src="./assets/images/customers-icon-12.png" class="img-fluid m-2" alt="login" id="customer-img">
+    <p class="h2 text-primary">Employee</p>
+    <div class="background p-3" id="customer-background">
+        <table class="table table-success table-striped-columns mt-3">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Join date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Access Role</th>
+                <th scope="col">Dob</th>
+                <th scope="col">Address</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Email</th>
+                <th scope="col">Guardian</th>
+                <th scope="col">Guardian Contact</th>
+            </tr>
+            </thead>
+            </thead>
+            <tbody id="customer-t-body"></tbody>
+        </table>
+    </div>
+</div>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+<script src="./assets/lib/jquary.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="./controller/customer_controller.js"></script>
+<script type="module" src="./controller/store_controller.js"></script>
+<script type="module" src="./controller/order_controller.js"></script>
+<script type="module" src="./controller/user_controller.js"></script>
+</body>
+</html>

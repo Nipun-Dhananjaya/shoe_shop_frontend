@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/logo.png">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="POS System">
+    <meta name="keywords" content="nipun dhananjaya,software engineer, portfolio, eden garden, java,mysql,html">
+    <meta name="author" content="Nipun Dhananjaya">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=K2D&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=K2D&family=Stylish&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/customer-styles.css">
+    <link rel="stylesheet" href="css/order-styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<!--Sales-------------------------------------------------------------------------------------------------------------->
+<div class="order-window" id="order-window">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0">
+            <div class="container-fluid p-0" id="">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="cursor: pointer">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="customer-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './customer.html';" >Customer</a>
+                        </li>
+                        <li class="nav-item" id="emp-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './employee_users.html';" >Employee</a>
+                        </li>
+                        <li class="nav-item" id="sup-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './suppliers_users.html';" >Suppliers</a>
+                        </li>
+                        <li class="nav-item" id="inventory-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './inventory.html';" >Inventory</a>
+                        </li>
+                        <li class="nav-item" id="sales-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './sales.html';" >Sales</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="img-fluid logo-img m-2" alt="login" >
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <img src="./assets/images/imagesbbn-removebg-preview.png" class="img-fluid m-2" alt="login" id="order-img">
+    <p class="h2 text-primary">Sales</p>
+    <div class="background p-3" id="order-background">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container-sm p-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ord-id">Order ID :</label>
+                                    <input type="text" class="form-control border border-danger" id="ord-id" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ord-date">Order Date :</label>
+                                    <input type="date" class="form-control border border-danger" id="ord-date" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-id">Customer ID :</label>
+                                    <div class="dropdown">
+                                        <button id="cust-id" class="btn dropdown-toggle border border-danger col-md-12 bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Click Here To Select
+                                        </button>
+                                        <ul id="dropdown-menu-cusID" class="dropdown-menu col-md-12 " aria-labelledby="item-code">
+                                            <!-- Options will be dynamically added here -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-name">Name :</label>
+                                    <input type="text" class="form-control border border-danger" id="cust-name" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-add">Loyalty Level :</label>
+                                    <input type="text" class="form-control border border-danger" id="cust-add" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cust-cont">Points :</label>
+                                    <input type="text" class="form-control border border-danger" id="cust-cont" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="container-sm p-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item-code">Item Code :</label>
+                                    <div class="dropdown">
+                                        <button id="item-code" class="btn dropdown-toggle border border-danger col-md-12 bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Click Here To Select
+                                        </button>
+                                        <ul id="dropdown-menu-itmId" class="dropdown-menu col-md-12 " aria-labelledby="item-code">
+                                            <!-- Options will be dynamically added here -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="itm-desc">Description :</label>
+                                    <input type="text" class="form-control border border-danger" id="itm-desc" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item-price">Price :</label>
+                                    <input type="text" class="form-control border border-danger" id="item-price" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="itm-qty-on-hand">Quantity On Hand :</label>
+                                    <input type="text" class="form-control border border-danger" id="itm-qty-on-hand" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item-qty">Quantity :</label>
+                                    <input type="text" class="form-control border border-danger" id="item-qty" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button id="add-itm-btn" type="button" class="btn btn-danger col-md-12 mt-4">Add Item</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="container-sm mt-1 p-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="discount">Discount :</label>
+                                    <input type="text" class="form-control border border-danger" id="discount" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <p class="h2 mt-3">Total :</p>
+                                    <p id="tot" class="h2 mt-3 text-primary-emphasis">0.00 /=</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cash">Cash :</label>
+                                    <input type="text" class="form-control border border-danger" id="cash" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <p class="h2 mt-3">Subtotal :</p>
+                                    <p id="subtot" class="h2 mt-3 text-danger">0.00 /=</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="balance">Balance :</label>
+                                    <input type="text" class="form-control border border-danger" id="balance" placeholder="" class="input">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cashier-name">Cashier Name :</label>
+                                    <input type="text" class="form-control border border-danger" id="cashier-name" placeholder="" class="input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="purchase" type="button" class="btn btn-primary col-md-12 mt-2">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="update-ord" type="button" class="btn btn-success col-md-12 mt-2">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button id="delete-ord" type="button" class="btn btn-danger col-md-12 mt-2">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="button" id="all-orders-btn" class="btn btn-secondary col-md-12 mt-2">All Orders</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table table-success table-striped-columns mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Quantity to Buy</th>
+                <th scope="col">Whole Price</th>
+            </tr>
+            </thead>
+            <tbody id="order-item-table-body"></tbody>
+        </table>
+    </div>
+</div>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+<script src="./assets/lib/jquary.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="./controller/customer_controller.js"></script>
+<script type="module" src="./controller/store_controller.js"></script>
+<script type="module" src="./controller/order_controller.js"></script>
+</body>
+</html>
