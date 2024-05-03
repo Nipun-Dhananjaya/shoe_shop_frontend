@@ -1,0 +1,29 @@
+.profile{
+    height: 50vh;
+    width: 40vw;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 15px;
+    background-image: linear-gradient(to right bottom, #bbb5f4, #ada7f2, #9f9af0, #908dee, #8080ec);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.profile>.container{
+    display: inline-block;
+    border-radius: 15px;
+    position: relative;
+}
+.profile>.container>.row{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.btn {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
