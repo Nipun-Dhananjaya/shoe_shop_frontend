@@ -7,7 +7,7 @@
     height: 50px;
     width: 50px;
 }
-#order-background{
+#order-background,#item-background{
     width: 98vw;
     height: fit-content;
     position: relative;

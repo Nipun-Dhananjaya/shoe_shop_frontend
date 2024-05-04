@@ -19,7 +19,7 @@ async function loadAll() {
     $("#customer-t-body").empty();
     customers.map((item, index) => {
         let customer =
-            `<tr><td class="customer-code">${item.code}</td><td class="customer-name">${item.name}</td><td class="customer-name">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="level">${item.level}</td><td class="points">${item.totPoints}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="salary">${item.contact}</td><td class="email">${item.email}</td></tr>`
+            `<tr><td class="customer-code">${item.code}</td><td class="customer-name">${item.name}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="level">${item.level}</td><td class="points">${item.totPoints}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td></tr>`
         $("#customer-t-body").append(customer);
     })
 }
@@ -190,29 +190,37 @@ $("#c-delete-btn").on('click', async () => {
 });
 
 // clicked raw set to input fields
-let cus_nic;
 $("#customer-t-body").on('click', ("tr"), function () {
     $("#customer-name").val($(this).find(".customer-name").text());
-    $("#customer-nic").val($(this).find(".customer-nic").text());
+    $("#customer-nic").val($(this).find(".customer-code").text());
     $("#customer-address").val($(this).find(".address").text());
-    $("#customer-sal").val($(this).find(".salary").text());
-    cus_nic = $(this).find(".nic").text();
+    $("#customer-contact").val($(this).find(".contact").text());
+    $("#customer-joined-date").val($(this).find(".joined-date").text());
+    $("#dob").val($(this).find(".dob").text());
+    $("#point").val($(this).find(".points").text());
+    $("#level").val($(this).find(".level").text());
 });
 
 //search customer
-$("#customer-search").on("input", function () {
+$("#customer-search").on("input", async function () {
+    const customers = await getAllCustomers();
     $("#customer-t-body").empty();
-    customer_db.map((item, index) => {
-        if(item.nic.toLowerCase().startsWith($("#customer-search").val().toLowerCase()) || item.name.toLowerCase().startsWith($("#customer-search").val().toLowerCase()) || item.address.toLowerCase().startsWith($("#customer-search").val().toLowerCase())) {
-            $("#customer-t-body").append(`<tr><td class="customer-name">${item.name}</td><td class="customer-nic">${item.nic}</td><td class="address">${item.address}</td><td class="salary">${item.contact}</td></td></tr>`);
+    customers.map((item, index) => {
+        if (item.code.toLowerCase().startsWith($("#customer-search").val().toLowerCase()) || item.name.toLowerCase().startsWith($("#customer-search").val().toLowerCase()) || item.email.toLowerCase().startsWith($("#customer-search").val().toLowerCase())) {
+            let customer =
+                `<tr><td class="customer-code">${item.code}</td><td class="customer-name">${item.name}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="level">${item.level}</td><td class="points">${item.totPoints}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td></tr>`
+            $("#customer-t-body").append(customer);
         }
     })
 });
-$("#customer-search-btn").on("click", function () {
+$("#customer-search-btn").on("click", async function () {
+    const customers = await getAllCustomers();
     $("#customer-t-body").empty();
-    customer_db.map((item, index) => {
-        if(item.nic.toLowerCase()===($("#customer-search").val().toLowerCase()) || item.name.toLowerCase()===($("#customer-search").val().toLowerCase()) || item.address.toLowerCase()===($("#customer-search").val().toLowerCase())) {
-            $("#customer-t-body").append(`<tr><td class="customer-name">${item.name}</td><td class="customer-nic">${item.nic}</td><td class="address">${item.address}</td><td class="salary">${item.contact}</td></td></tr>`);
+    customers.map((item, index) => {
+        if (item.code.toLowerCase() === ($("#customer-search").val().toLowerCase()) || item.name.toLowerCase() === ($("#customer-search").val().toLowerCase()) || item.email.toLowerCase() === ($("#customer-search").val().toLowerCase())) {
+            let customer =
+                `<tr><td class="customer-code">${item.code}</td><td class="customer-name">${item.name}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="level">${item.level}</td><td class="points">${item.totPoints}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td></tr>`
+            $("#customer-t-body").append(customer);
         }
     })
 });
