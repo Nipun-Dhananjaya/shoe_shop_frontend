@@ -1,6 +1,6 @@
 // customer db
 import {CustomerModel} from "../model/CustomerModel.js";
-import {deleteCustomer, getAllCustomers, saveCustomer, updateCustomer} from "../db/Customer_DB.js";
+import {deleteCustomer, getAllCustomers, saveCustomer, updateCustomer} from "../api/Customer_api.js";
 
 // clear inputs
 function clearInputs() {
