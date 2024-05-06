@@ -53,6 +53,7 @@
     <img src="./assets/images/lorrygreen.png" class="img-fluid m-2" alt="login" id="store-img">
     <p class="h2 text-primary">Inventory</p>
     <div class="store-background p-3" id="store-background">
+        <img id="previewImage" src="" class="rounded float-start m-2 border border-secondary bg-secondary" style="width: 200px; height: 200px; display: inline" alt="pro-pic">
         <form>
             <div class="row">
                 <div class="col-md-6">
@@ -79,9 +80,13 @@
                     <div class="form-group">
                         <label for="category">Category :</label>
                         <select aria-label="Default select example" class="form-select border border-danger" id="category">
-                            <option value="Married">Married</option>
-                            <option value="Unmarried">Unmarried</option>
-                            <option value="Divorced">Divorced</option>
+                            <option value="Heels">Heels</option>
+                            <option value="Flats">Flats</option>
+                            <option value="Wedges">Wedges</option>
+                            <option value="Flip Flops">Flip Flops</option>
+                            <option value="Sandals">Sandals</option>
+                            <option value="Shoes">Shoes</option>
+                            <option value="Slippers">Slippers</option>
                         </select>
                     </div>
                 </div>
@@ -97,9 +102,7 @@
                     <div class="form-group">
                         <label for="sup-code">Supplier Code :</label>
                         <select aria-label="Default select example" class="form-select border border-danger" id="sup-code">
-                            <option value="Married">Married</option>
-                            <option value="Unmarried">Unmarried</option>
-                            <option value="Divorced">Divorced</option>
+                            <option value=""></option>
                         </select>
                     </div>
                 </div>
@@ -188,9 +191,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script type="module" src="./controller/customer_controller.js"></script>
 <script type="module" src="./controller/store_controller.js"></script>
-<script type="module" src="./controller/order_controller.js"></script>
-<script type="module" src="./controller/user_controller.js"></script>
 </body>
 </html>

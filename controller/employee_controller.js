@@ -235,7 +235,7 @@ $("#c-delete-btn").on('click', async () => {
 });
 
 // clicked raw set to input fields
-$("#customer-t-body").on('click', ("tr"), async function () {
+$("#emp-t-body").on('click', ("tr"), async function () {
     const employees = await getAllEmployees();
     $("#emp-name").val($(this).find(".emp-name").text());
     $("#emp-nic").val($(this).find(".emp-code").text());
@@ -252,16 +252,17 @@ $("#customer-t-body").on('click', ("tr"), async function () {
     employees.map((item, index) => {
         if (item.empCode.toLowerCase()===$(this).find(".emp-code").text()) {
             $("#emp-gender").val(item.gender);
-        }
-        var convertedFile = convertBase64ToFile(item.proPic, "proPic");
 
-        // Set the converted file back to the file input field
-        var newFileInput = $("#fileInput")[0];
-        newFileInput.files = [convertedFile];
-        if (item.gender==='Male'){
-            $("#flexRadioDefault2").prop("checked", true);
-        }else{
-            $("#flexRadioDefault1").prop("checked", true);
+            var convertedFile = convertBase64ToFile(item.proPic, "proPic");
+
+            // Set the converted file back to the file input field
+            var newFileInput = $("#fileInput")[0];
+            newFileInput.files = [convertedFile];
+            if (item.gender==='Male'){
+                $("#flexRadioDefault2").prop("checked", true);
+            }else{
+                $("#flexRadioDefault1").prop("checked", true);
+            }
         }
     })
 
@@ -296,7 +297,7 @@ $("#emp-search").on("input", async function () {
         if (item.empCode.toLowerCase().startsWith($("#emp-search").val().toLowerCase()) || item.empName.toLowerCase().startsWith($("#emp-search").val().toLowerCase()) || item.email.toLowerCase().startsWith($("#emp-search").val().toLowerCase())) {
             let employee =
                 `<tr><td class="emp-code">${item.empCode}</td><td class="emp-name">${item.empName}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="status">${item.status}</td><td class="accessRole">${item.accessRole}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td><td class="branch">${item.branch}</td><td class="designation">${item.designation}</td><td class="guardian">${item.guardian}</td><td class="guardianCont">${item.guardianCont}</td></tr>`
-            $("#customer-t-body").append(employee);
+            $("#emp-t-body").append(employee);
         }
     })
 });
@@ -307,7 +308,7 @@ $("#emp-search-btn").on("click", async function () {
         if (item.empCode.toLowerCase() === ($("#emp-search").val().toLowerCase()) || item.empName.toLowerCase() === ($("#emp-search").val().toLowerCase()) || item.email.toLowerCase() === ($("#emp-search").val().toLowerCase())) {
             let employee =
                 `<tr><td class="emp-code">${item.empCode}</td><td class="emp-name">${item.empName}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="status">${item.status}</td><td class="accessRole">${item.accessRole}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td><td class="branch">${item.branch}</td><td class="designation">${item.designation}</td><td class="guardian">${item.guardian}</td><td class="guardianCont">${item.guardianCont}</td></tr>`
-            $("#customer-t-body").append(employee);
+            $("#emp-t-body").append(employee);
         }
     })
 });
