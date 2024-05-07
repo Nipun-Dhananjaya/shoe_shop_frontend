@@ -1,5 +1,6 @@
 import {deleteSupplier, getAllSupplier, saveSupplier, updateSupplier} from "../api/Supplier_api";
 import {SupplierModel} from "../model/SupplierModel";
+import {getAllCustomers} from "../api/Customer_api";
 
 
 // clear inputs
@@ -204,26 +205,41 @@ $("#sup-t-body").on('click', ("tr"), async function () {
 });
 
 //search customer
-$("#emp-search").on("input", async function () {
+$("#supplier-search").on("input", async function () {
     const suppliers = await getAllSupplier();
     $("#sup-t-body").empty();
     suppliers.map((item, index) => {
         if (item.supCode.toLowerCase().startsWith($("#supplier-search").val().toLowerCase()) || item.supName.toLowerCase().startsWith($("#supplier-search").val().toLowerCase())) {
             let supplier =
                 `<tr><td class="sup-code">${item.supCode}</td><td class="sup-name">${item.supName}</td><td class="category">${item.category}</td><td class="address">${item.address}</td><td class="contactOne">${item.contactOne}</td><td class="contactTwo">${item.contactTwo}</td><td class="email">${item.email}</td></tr>`
-            $("#emp-t-body").append(supplier);
+            $("#sup-t-body").append(supplier);
         }
     })
 });
 
-$("#emp-search-btn").on("click", async function () {
+$("#supplier-search-btn").on("click", async function () {
     const suppliers = await getAllSupplier();
     $("#sup-t-body").empty();
     suppliers.map((item, index) => {
         if (item.supCode.toLowerCase() === ($("#supplier-search").val().toLowerCase()) || item.supName.toLowerCase() === ($("#supplier-search").val().toLowerCase())) {
             let supplier =
                 `<tr><td class="sup-code">${item.supCode}</td><td class="sup-name">${item.supName}</td><td class="category">${item.category}</td><td class="address">${item.address}</td><td class="contactOne">${item.contactOne}</td><td class="contactTwo">${item.contactTwo}</td><td class="email">${item.email}</td></tr>`
-            $("#emp-t-body").append(supplier);
+            $("#sup-t-body").append(supplier);
         }
     })
+});
+
+function generateNextSuplierId() {
+    const suppliers = getAllSupplier();
+    $("#supplier-code").val("S00" + (suppliers.length + 1));
+}
+
+$(document).ready(function () {
+    function supIdMakeReadonly() {
+        $("#supplier-code").prop("readonly",true);
+    }
+    supIdMakeReadonly();
+    generateNextSuplierId();
+    loadAll();
+    setInterval(supIdMakeReadonly,1000);
 });

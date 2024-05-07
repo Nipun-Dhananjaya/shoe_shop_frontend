@@ -326,4 +326,16 @@ $(document).ready(function() {
 
         reader.readAsDataURL(input.files[0]);
     });
+    function empIdMakeReadonly() {
+        $("#emp-nic").prop("readonly",true);
+    }
+    empIdMakeReadonly();
+    generateNextEmpId();
+    setInterval(empIdMakeReadonly,1000);
+    loadAll();
 });
+//generate next item id
+function generateNextEmpId() {
+    const emps = getAllEmployees();
+    $("#emp-nic").val("E00" + (emps.length + 1));
+}

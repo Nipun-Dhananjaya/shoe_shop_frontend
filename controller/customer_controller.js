@@ -224,3 +224,20 @@ $("#customer-search-btn").on("click", async function () {
         }
     })
 });
+
+
+//generate next item id
+function generateNextCustomerId() {
+    const customers = getAllCustomers();
+    $("#cust-id").val("C00" + (customers.length + 1));
+}
+
+$(document).ready(function () {
+    function custIdMakeReadonly() {
+        $("#cust-id").prop("readonly",true);
+    }
+    custIdMakeReadonly();
+    generateNextCustomerId();
+    loadAll();
+    setInterval(custIdMakeReadonly,1000);
+});
