@@ -1,8 +1,8 @@
-export const saveEmployee = async (employee) => {
+export const saveCustomer = async (customer) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/employee', {
+        const response = await fetch('http://localhost:8081/shop/api/v1/customer', {
             method: 'POST',
-            body: JSON.stringify(employee),
+            body: JSON.stringify(customer),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -13,20 +13,20 @@ export const saveEmployee = async (employee) => {
         console.error('Error :' + error);
     }
 };
-export const getAllEmployees = async () => {
+export const getAllCustomers = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?action=all`);
-        const employees = await response.json();
-        return employees;
+        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?action=all`);
+        const customers = await response.json();
+        return customers;
     } catch (error) {
         console.error('Error :' + error);
     }
 }
-export const updateEmployee = async (employee) => {
+export const updateCustomer = async (customer) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/employee', {
+        const response = await fetch('http://localhost:8081/shop/api/v1/customer', {
             method: 'PUT',
-            body: JSON.stringify(employee),
+            body: JSON.stringify(customer),
             headers: {
                 'Content-type': 'application/json',
             },
@@ -37,9 +37,9 @@ export const updateEmployee = async (employee) => {
         console.log('Error :' + error)
     }
 }
-export const deleteEmployee = async (id) => {
+export const deleteCustomer = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?id=${id}`, {
             method: 'DELETE',
         });
         return response.status;
@@ -47,9 +47,9 @@ export const deleteEmployee = async (id) => {
         console.log("error :" + error);
     }
 }
-export const nextEmployeeId = async () => {
+export const nextCustomerId = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?action=nextVal`);
+        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?action=nextVal`);
         const nextId = await response.text();
         return nextId;
     } catch (error) {

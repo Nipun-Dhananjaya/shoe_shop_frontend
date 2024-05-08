@@ -1,6 +1,6 @@
-export const saveEmployee = async (employee) => {
+export const saveOrder = async (employee) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/employee', {
+        const response = await fetch('http://localhost:8081/shop/api/v1/sales', {
             method: 'POST',
             body: JSON.stringify(employee),
             headers: {
@@ -13,18 +13,18 @@ export const saveEmployee = async (employee) => {
         console.error('Error :' + error);
     }
 };
-export const getAllEmployees = async () => {
+export const getAllOrders = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?action=all`);
+        const response = await fetch(`http://localhost:8081/shop/api/v1/sales?action=all`);
         const employees = await response.json();
         return employees;
     } catch (error) {
         console.error('Error :' + error);
     }
 }
-export const updateEmployee = async (employee) => {
+export const updateOrder = async (employee) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/employee', {
+        const response = await fetch('http://localhost:8081/shop/api/v1/sales', {
             method: 'PUT',
             body: JSON.stringify(employee),
             headers: {
@@ -37,9 +37,9 @@ export const updateEmployee = async (employee) => {
         console.log('Error :' + error)
     }
 }
-export const deleteEmployee = async (id) => {
+export const deleteOrder = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/sales?id=${id}`, {
             method: 'DELETE',
         });
         return response.status;
@@ -47,9 +47,9 @@ export const deleteEmployee = async (id) => {
         console.log("error :" + error);
     }
 }
-export const nextEmployeeId = async () => {
+export const nextOrderId = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?action=nextVal`);
+        const response = await fetch(`http://localhost:8081/shop/api/v1/sales?action=nextVal`);
         const nextId = await response.text();
         return nextId;
     } catch (error) {

@@ -1,6 +1,6 @@
 export const saveSupplier = async (supplier) => {
     try {
-        const response = await fetch('http://localhost:8081/scope/customer', {
+        const response = await fetch('http://localhost:8081/shop/api/v1/supplier', {
             method: 'POST',
             body: JSON.stringify(supplier),
             headers: {
@@ -15,7 +15,7 @@ export const saveSupplier = async (supplier) => {
 };
 export const getAllSupplier = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/scope/customer?action=all`);
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?action=all`);
         const employees = await response.json();
         return employees;
     } catch (error) {
@@ -24,7 +24,7 @@ export const getAllSupplier = async () => {
 }
 export const updateSupplier = async (supplier) => {
     try {
-        const response = await fetch('http://localhost:8081/scope/customer', {
+        const response = await fetch('http://localhost:8081/shop/api/v1/supplier', {
             method: 'PUT',
             body: JSON.stringify(supplier),
             headers: {
@@ -39,7 +39,7 @@ export const updateSupplier = async (supplier) => {
 }
 export const deleteSupplier = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8081/scope/customer?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?id=${id}`, {
             method: 'DELETE',
         });
         return response.status;
@@ -49,7 +49,7 @@ export const deleteSupplier = async (id) => {
 }
 export const nextSupplierId = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/scope/customer?action=nextVal`);
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?action=nextVal`);
         const nextId = await response.text();
         return nextId;
     } catch (error) {
