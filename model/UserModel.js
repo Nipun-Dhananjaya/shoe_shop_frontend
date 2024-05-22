@@ -5,3 +5,4 @@ export class UserModel {
         this.role = role;
     }
 }
+

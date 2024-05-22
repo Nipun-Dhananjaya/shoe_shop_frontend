@@ -1,6 +1,13 @@
 import {deleteEmployee, getAllEmployees, saveEmployee, updateEmployee} from "../api/Employee_api.js";
 import {EmployeeModel} from "../model/EmployeeModel.js";
 
+//regex pattern
+const namePattern = /^[A-Za-z\s\-']+$/;
+const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
+const addressPattern = /^(\d{1,5})\s([A-Za-z0-9\s]{1,100}),\s([A-Za-z\s]{1,50}),\s([A-Za-z]{2}),\s(\d{5}(-\d{4})?)$/;
+const phoneNumberPattern = /^(07[0125678]\d{7})$/;
+const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
 // clear inputs
 function clearInputs() {
     $("#emp-address").val("");
@@ -10,25 +17,13 @@ function clearInputs() {
     $("#emp-search").val("");
     $("#emp-code").val("");
     $("#emp-email").val("");
+    $("#emp-cont").val();
+    $("#guardian-name").val("");
+    $("#guardian-contact").val("");
+    $("#designation").val("");
+    $("#branch").val("");
+    generateNextEmpId();
 }
-
-// load all customers to table
-async function loadAll() {
-    const customers = await getAllEmployees();
-    $("#customer-t-body").empty();
-    customers.map((item, index) => {
-        let customer =
-            `<tr><td class="customer-code">${item.code}</td><td class="customer-name">${item.name}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="level">${item.level}</td><td class="points">${item.totPoints}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td></tr>`
-        $("#customer-t-body").append(customer);
-    })
-}
-
-//regex pattern
-const namePattern = /^[A-Za-z\s\-']+$/;
-const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^[A-Za-z0-9'\/\.\,  ]{5,}$/;
-const phoneNumberPattern = /^(07[0125678]\d{7})$/;
-const emailPattern = /^[a-zA-Z0-9_.-]@([a-zA-Z]+)([\\.])([a-zA-Z]+)$/;
 
 //error alert
 function showError(message) {
@@ -38,11 +33,58 @@ function showError(message) {
     });
 }
 
+$("#fileInput").change(function(event) {
+    var input = event.target;
+    var file = input.files[0];
+
+    if (file) {
+        new Compressor(file, {
+            quality: 0.6, // Compress to 60% of original quality
+            success(result) {
+                var reader = new FileReader();
+
+                reader.onload = function() {
+                    var dataURL = reader.result;
+                    console.log("Compressed Base64 length:", dataURL.length);
+                    $("#previewImage").attr('src', dataURL);
+                    $("#previewImage").show();
+                };
+
+                reader.readAsDataURL(result);
+            },
+            error(err) {
+                console.error(err.message);
+            },
+        });
+    }
+});
+
+function convertBase64ToFile(base64String, fileName) {
+    // Remove the data URL prefix if present
+    var base64WithoutPrefix = base64String.replace(/^data:[^;]+;base64,/, '');
+
+    // Convert the Base64 string to a Uint8Array
+    var binaryString = atob(base64WithoutPrefix);
+    var binaryLength = binaryString.length;
+    var bytes = new Uint8Array(binaryLength);
+    for (var i = 0; i < binaryLength; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    // Create a Blob from the Uint8Array
+    var blob = new Blob([bytes], { type: 'image/jpeg' }); // Specify the appropriate MIME type here
+
+    // Create a File object from the Blob
+    var file = new File([blob], fileName, { type: 'image/jpeg' }); // Specify the appropriate MIME type here
+
+    return file;
+}
+
 //save customer
 $("#e-save-btn").on('click', async () => {
-    const empCont = $("#emp-contact").val();
+    const empCont = $("#emp-cont").val();
     const empName = $("#emp-name").val();
-    const empCode = $("#emp-code").val();
+    const empCode = $("#emp-nic").val();
     const empEmail = $("#emp-email").val();
     const address = $("#emp-address").val();
     const joindeDate = $("#emp-joined-date").val();
@@ -55,8 +97,22 @@ $("#e-save-btn").on('click', async () => {
     const branch = $("#branch").val();
     const gender = $("input[name='flexRadioDefault']:checked").val();
 
+    console.log(empCont);
+    console.log(empName);
+    console.log(empCode);
+    console.log(empEmail);
+    console.log(address);
+    console.log(joindeDate);
+    console.log(dob);
+    console.log(guardian);
+    console.log(guardianCont);
+    console.log(eStatus);
+    console.log(role);
+    console.log(branch);
+    console.log(gender);
+
     if (!empCont || !empName || !address || !empCode || !empEmail || !joindeDate || !dob) {
-        showError("Please fill in all fields correctly.");
+        showError("Please fill all fields correctly.");
         return;
     }
 
@@ -84,49 +140,65 @@ $("#e-save-btn").on('click', async () => {
         showError("Enter a valid email address");
         return;
     }
-    let base64String='';
+
+    let base64String = '';
     var file = $("#fileInput")[0].files[0];
 
-    if (file) {
-        var reader = new FileReader();
-
-        reader.onload = function() {
-            base64String = reader.result;
-            console.log("File converted to Base64:", base64String);
-        };
-
-        reader.onerror = function(error) {
-            showError("Error reading file:", error);
-        };
-
-        reader.readAsDataURL(file);
-    } else {
-        showError('Profile Picture Not Selected');
-    }
-
-    const status=await saveEmployee(new EmployeeModel(empCode, empName,base64String,gender,eStatus,designation,role,dob,joindeDate, branch, address,empCont,empEmail,guardian,guardianCont));
-
-    if (status === 200) {
-        await Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Customer saved successfully',
-            showConfirmButton: false,
-            timer: 1500,
+    const readFileAsDataURL = (file) => {
+        return new Promise((resolve, reject) => {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            } else {
+                reject('Profile Picture Not Selected');
+            }
         });
-    } else {
-        await Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Customer not saved, please try again',
-            showConfirmButton: false,
-            timer: 1500,
-        });
-    }
+    };
 
-    await clearInputs();
-    await loadAll();
+    try {
+        base64String = await readFileAsDataURL(file);
+        console.log(base64String);
+
+        const status = await saveEmployee(new EmployeeModel(empCode, empName, base64String, gender, eStatus, designation, role, dob, joindeDate, branch, address, empCont, empEmail, guardian, guardianCont));
+
+        console.log(status);
+        if (status === 200) {
+            await Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Employee saved successfully',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        } else {
+            await Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Employee not saved, please try again',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+
+        await clearInputs();
+        await loadAll();
+    } catch (error) {
+        showError(error);
+    }
 });
+
+// load all customers to table
+async function loadAll() {
+    const employees = await getAllEmployees();
+    $("#emp-t-body").empty();
+    employees.map((item, index) => {
+        let employee =
+            `<tr><td class="emp-code">${item.empCode}</td><td class="emp-name">${item.empName}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="status">${item.status}</td><td class="accessRole">${item.accessRole}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td><td class="branch">${item.branch}</td><td class="designation">${item.designation}</td><td class="guardian">${item.guardian}</td><td class="guardianCont">${item.guardianCont}</td></tr>`
+        $("#emp-t-body").append(employee);
+    })
+}
 
 //update customer
 $("#e-update-btn").on('click', async () => {
@@ -144,6 +216,20 @@ $("#e-update-btn").on('click', async () => {
     const role = $("#role").val();
     const branch = $("#branch").val();
     const gender = $("input[name='flexRadioDefault']:checked").val();
+
+    console.log(empCont)
+    console.log(empName)
+    console.log(empCode)
+    console.log(empEmail)
+    console.log(address)
+    console.log(joindeDate)
+    console.log(dob)
+    console.log(guardian)
+    console.log(guardianCont)
+    console.log(eStatus)
+    console.log(role)
+    console.log(branch)
+    console.log(gender)
 
     if (!empCont || !empName || !address || !empCode || !empEmail || !joindeDate || !dob) {
         showError("Please fill in all fields correctly.");
@@ -268,27 +354,6 @@ $("#emp-t-body").on('click', ("tr"), async function () {
 
 });
 
-function convertBase64ToFile(base64String, fileName) {
-    // Remove the data URL prefix if present
-    var base64WithoutPrefix = base64String.replace(/^data:[^;]+;base64,/, '');
-
-    // Convert the Base64 string to a Uint8Array
-    var binaryString = atob(base64WithoutPrefix);
-    var binaryLength = binaryString.length;
-    var bytes = new Uint8Array(binaryLength);
-    for (var i = 0; i < binaryLength; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-    }
-
-    // Create a Blob from the Uint8Array
-    var blob = new Blob([bytes], { type: 'image/jpeg' }); // Specify the appropriate MIME type here
-
-    // Create a File object from the Blob
-    var file = new File([blob], fileName, { type: 'image/jpeg' }); // Specify the appropriate MIME type here
-
-    return file;
-}
-
 //search customer
 $("#emp-search").on("input", async function () {
     const employees = await getAllEmployees();
@@ -312,6 +377,17 @@ $("#emp-search-btn").on("click", async function () {
         }
     })
 });
+//generate next item id
+async function generateNextEmpId() {
+    const emps = await getAllEmployees();
+    console.log(emps.length)
+    if (emps.length === undefined) {
+        $("#emp-nic").val("E001");
+    } else {
+        $("#emp-nic").val("E00" + (emps.length + 1));
+    }
+
+}
 
 $(document).ready(function() {
     $("#fileInput").change(function(event) {
@@ -334,8 +410,3 @@ $(document).ready(function() {
     setInterval(empIdMakeReadonly,1000);
     loadAll();
 });
-//generate next item id
-function generateNextEmpId() {
-    const emps = getAllEmployees();
-    $("#emp-nic").val("E00" + (emps.length + 1));
-}

@@ -101,13 +101,13 @@ $(document).ready(function () {
 // clear inputs
 function clearInputs() {
     $("#cust-name").val(""),
-        $("#cust-loyalty-level").val(""),
-        $("#cust-points").val(""),
-        $("#balance").val(""),
-        $("#discount").val(""),
-        $("#cash").val(""),
-        $("#subtot").text("0.00 /="),
-        $("#tot").text("0.00 /=")
+    $("#cust-loyalty-level").val(""),
+    $("#cust-points").val(""),
+    $("#balance").val(""),
+    $("#discount").val(""),
+    $("#cash").val(""),
+    $("#subtot").text("0.00 /="),
+    $("#tot").text("0.00 /=")
 }
 
 //check buying item is have in order list

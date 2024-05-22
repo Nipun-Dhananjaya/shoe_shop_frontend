@@ -1,6 +1,5 @@
-import {deleteSupplier, getAllSupplier, saveSupplier, updateSupplier} from "../api/Supplier_api";
-import {SupplierModel} from "../model/SupplierModel";
-import {getAllCustomers} from "../api/Customer_api";
+import {deleteSupplier, getAllSupplier, saveSupplier, updateSupplier} from "../api/Supplier_api.js";
+import {SupplierModel} from "../model/SupplierModel.js";
 
 
 // clear inputs
@@ -231,7 +230,11 @@ $("#supplier-search-btn").on("click", async function () {
 
 function generateNextSuplierId() {
     const suppliers = getAllSupplier();
-    $("#supplier-code").val("S00" + (suppliers.length + 1));
+    if (suppliers.length===undefined){
+        $("#supplier-code").val("S001");
+    }else{
+        $("#supplier-code").val("S00" + (suppliers.length + 1));
+    }
 }
 
 $(document).ready(function () {

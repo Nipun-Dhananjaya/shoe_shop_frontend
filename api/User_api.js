@@ -15,7 +15,8 @@ export const saveUser = async (supplier) => {
 };
 export const getAllUsers = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/user?action=all`);
+        const response = await fetch(`http://localhost:8081/shop/api/v1/user`,{
+        method: 'GET',});
         const employees = await response.json();
         return employees;
     } catch (error) {
@@ -56,3 +57,4 @@ export const nextUserId = async () => {
         console.error('Error :' + error);
     }
 }
+

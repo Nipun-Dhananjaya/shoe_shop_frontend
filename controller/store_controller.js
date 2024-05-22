@@ -1,21 +1,6 @@
 import {ItemModel} from "../model/ItemModel.js";
 import {deleteItem, getAllItem, saveItem, updateItem} from "../api/Store_api.js";
 
-//item id make read only
-$(document).ready(function () {
-    $("#fileInput").change(function(event) {
-        var input = event.target;
-        var reader = new FileReader();
-
-        reader.onload = function(){
-            var dataURL = reader.result;
-            $("#previewImage").attr('src', dataURL);
-            $("#previewImage").show();
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    });
-});
 
 //clear add inputs
 function clearAddInputs() {
@@ -341,4 +326,40 @@ $("#store-search-btn").on("input", async function () {
             $("#itm-tbl-body").append(item);
         }
     })
+});
+
+//generate next item id
+function generateNextItemId() {
+    const itms = getAllItem();
+    console.log(itms.length)
+    if (itms.length===undefined){
+        console.log("I001");
+        $("#itm-code").val("I001");
+        console.log($("#itm-code").val());
+    }else{
+        console.log("I0");
+        $("#itm-code").val("I00" + (itms.length + 1));
+    }
+}
+//item id make read only
+$(document).ready(function () {
+    $("#fileInput").change(function(event) {
+        var input = event.target;
+        var reader = new FileReader();
+
+        reader.onload = function(){
+            var dataURL = reader.result;
+            $("#previewImage").attr('src', dataURL);
+            $("#previewImage").show();
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    });
+    function itemIdMakeReadonly() {
+        $("#itm-code").prop("readonly",true);
+    }
+    itemIdMakeReadonly();
+    generateNextItemId();
+    clearAddInputs();
+    loadAll();
 });

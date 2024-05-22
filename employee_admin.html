@@ -77,13 +77,13 @@
           <div class="form-group">
             <label for="emp-gender">Gender :</label>
             <div class="form-check" id="emp-gender">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Male" checked>
               <label class="form-check-label" for="flexRadioDefault1">
                 Male
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Female">
               <label class="form-check-label" for="flexRadioDefault2">
                 Female
               </label>
@@ -118,14 +118,14 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="customer-address">Address :</label>
-            <input type="text" class="form-control border border-danger" id="customer-address" placeholder="" class="input">
+            <label for="emp-address">Address :</label>
+            <input type="text" class="form-control border border-danger" id="emp-address" placeholder="" class="input">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="customer-sal">Contact :</label>
-            <input type="text" class="form-control border border-danger" id="customer-sal" placeholder="" class="input">
+            <label for="emp-cont">Contact :</label>
+            <input type="text" class="form-control border border-danger" id="emp-cont" placeholder="" class="input">
           </div>
         </div>
       </div>
@@ -134,8 +134,8 @@
           <div class="form-group">
             <label for="role">Access Role :</label>
             <select aria-label="Default select example" class="form-select border border-danger" id="role">
-              <option value="Married">ADMIN</option>
-              <option value="Unmarried">USER</option>
+              <option value="Admin">ADMIN</option>
+              <option value="User">USER</option>
             </select>
           </div>
         </div>
@@ -223,7 +223,7 @@
   </div>
 </div>
 <!--------------------------------------------------------------------------------------------------------------------->
-
+<script src="https://cdn.jsdelivr.net/npm/compressorjs@1.0.7/dist/compressor.min.js"></script>
 
 <script src="./assets/lib/jquary.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -232,3 +232,4 @@
 <script type="module" src="./controller/employee_controller.js"></script>
 </body>
 </html>
+

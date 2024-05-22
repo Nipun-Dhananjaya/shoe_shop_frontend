@@ -230,6 +230,11 @@ $("#customer-search-btn").on("click", async function () {
 function generateNextCustomerId() {
     const customers = getAllCustomers();
     $("#cust-id").val("C00" + (customers.length + 1));
+    if (customers.length===undefined){
+        $("#emp-nic").val("C001");
+    }else{
+        $("#emp-nic").val("C00" + (customers.length + 1));
+    }
 }
 
 $(document).ready(function () {

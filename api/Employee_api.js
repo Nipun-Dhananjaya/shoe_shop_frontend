@@ -1,5 +1,6 @@
 export const saveEmployee = async (employee) => {
     try {
+        console.log(employee)
         const response = await fetch('http://localhost:8081/shop/api/v1/employee', {
             method: 'POST',
             body: JSON.stringify(employee),
