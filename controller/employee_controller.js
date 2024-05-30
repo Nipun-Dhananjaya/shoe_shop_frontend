@@ -4,9 +4,9 @@ import {EmployeeModel} from "../model/EmployeeModel.js";
 //regex pattern
 const namePattern = /^[A-Za-z\s\-']+$/;
 const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^(\d{1,5})\s([A-Za-z0-9\s]{1,100}),\s([A-Za-z\s]{1,50}),\s([A-Za-z]{2}),\s(\d{5}(-\d{4})?)$/;
-const phoneNumberPattern = /^(07[0125678]\d{7})$/;
-const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const addressPattern = /^[\dA-Za-z\s,.-]+$/;
+const phoneNumberPattern = /^(?:\+?\d{1,3})?[ -]?\(?(?:\d{3})\)?[ -]?\d{3}[ -]?\d{4}$/;
+const emailPattern = /^[a-zA-Z0-9_.-]+@[a-zA-Z]+\.[a-zA-Z]+$/;
 
 // clear inputs
 function clearInputs() {
@@ -260,47 +260,50 @@ $("#e-update-btn").on('click', async () => {
         showError("Enter a valid email address");
         return;
     }
-    let base64String='';
+    let base64String = '';
     var file = $("#fileInput")[0].files[0];
 
-    if (file) {
-        var reader = new FileReader();
-
-        reader.onload = function() {
-            base64String = reader.result;
-            console.log("File converted to Base64:", base64String);
-        };
-
-        reader.onerror = function(error) {
-            showError("Error reading file:", error);
-        };
-
-        reader.readAsDataURL(file);
-    } else {
-        showError('Profile Picture Not Selected');
-    }
-
-    const status=await updateEmployee(new EmployeeModel(empCode, empName,base64String,gender,eStatus,designation,role,dob,joindeDate, branch, address,empCont,empEmail,guardian,guardianCont));
-
-    if (status === 200) {
-        await Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Customer saved successfully',
-            showConfirmButton: false,
-            timer: 1500,
+    const readFileAsDataURL = (file) => {
+        return new Promise((resolve, reject) => {
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            } else {
+                reject('Profile Picture Not Selected');
+            }
         });
-    } else {
-        await Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Customer not saved, please try again',
-            showConfirmButton: false,
-            timer: 1500,
-        });
+    };
+
+    try {
+        base64String = await readFileAsDataURL(file);
+        console.log(base64String);
+
+        const status=await updateEmployee(empCode,new EmployeeModel(empCode, empName,base64String,gender,eStatus,designation,role,dob,joindeDate, branch, address,empCont,empEmail,guardian,guardianCont));
+
+        if (status === 200) {
+            await Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Employee updated successfully',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        } else {
+            await Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Employee not updated, please try again',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+        await loadAll();
+        clearInputs()
+    } catch (error) {
+        showError(error);
     }
-    await loadAll();
-    clearInputs()
 });
 
 // delete customer
@@ -335,22 +338,46 @@ $("#emp-t-body").on('click', ("tr"), async function () {
     $("#guardian-name").val($(this).find(".guardian").text());
     $("#guardian-contact").val($(this).find(".guardianCont").text());
     $("#status").val($(this).find(".status").text());
-    employees.map((item, index) => {
+    employees.forEach((item) => {
         if (item.empCode.toLowerCase()===$(this).find(".emp-code").text()) {
-            $("#emp-gender").val(item.gender);
+            var base64String = item.picture;
 
-            var convertedFile = convertBase64ToFile(item.proPic, "proPic");
+            // Optional: Convert base64 string to a Blob
+            function base64ToBlob(base64, contentType) {
+                const byteCharacters = atob(base64);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                return new Blob([byteArray], { type: contentType });
+            }
 
-            // Set the converted file back to the file input field
-            var newFileInput = $("#fileInput")[0];
-            newFileInput.files = [convertedFile];
+            // Get the base64 data (assuming it's a base64 string without the prefix)
+            const base64Data = base64String.split(",")[1];
+            const blob = base64ToBlob(base64Data, "image/jpeg"); // Change the content type if necessary
+
+            // Create a URL for the blob and set it as the src for the image
+            const url = URL.createObjectURL(blob);
+
+            // Set the src attribute of the img element
+            $("#previewImage").attr("src", url);
+
+            // Create a File object from the Blob
+            const file = new File([blob], "picture.jpg", { type: "image/jpeg" });
+
+            // Use DataTransfer to simulate file input
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            $("#fileInput")[0].files = dataTransfer.files;
+
             if (item.gender==='Male'){
-                $("#flexRadioDefault2").prop("checked", true);
-            }else{
                 $("#flexRadioDefault1").prop("checked", true);
+            }else{
+                $("#flexRadioDefault2").prop("checked", true);
             }
         }
-    })
+    });
 
 });
 
@@ -410,3 +437,4 @@ $(document).ready(function() {
     setInterval(empIdMakeReadonly,1000);
     loadAll();
 });
+

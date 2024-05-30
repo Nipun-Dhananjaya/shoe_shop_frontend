@@ -1,7 +1,7 @@
 export const saveEmployee = async (employee) => {
     try {
         console.log(employee)
-        const response = await fetch('http://localhost:8081/shop/api/v1/employee', {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/employee`, {
             method: 'POST',
             body: JSON.stringify(employee),
             headers: {
@@ -16,16 +16,16 @@ export const saveEmployee = async (employee) => {
 };
 export const getAllEmployees = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?action=all`);
+        const response = await fetch(`http://localhost:8081/shop/api/v1/employee`);
         const employees = await response.json();
         return employees;
     } catch (error) {
         console.error('Error :' + error);
     }
 }
-export const updateEmployee = async (employee) => {
+export const updateEmployee = async (id,employee) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/employee', {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?empCode=${id}`, {
             method: 'PUT',
             body: JSON.stringify(employee),
             headers: {
@@ -40,20 +40,11 @@ export const updateEmployee = async (employee) => {
 }
 export const deleteEmployee = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?empCode=${id}`, {
             method: 'DELETE',
         });
         return response.status;
     } catch (error) {
         console.log("error :" + error);
-    }
-}
-export const nextEmployeeId = async () => {
-    try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?action=nextVal`);
-        const nextId = await response.text();
-        return nextId;
-    } catch (error) {
-        console.error('Error :' + error);
     }
 }

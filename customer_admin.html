@@ -30,20 +30,20 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="cursor: pointer">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="adminP-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './admin_panel.html';" >Admin Panel</a>
+                        </li>
                         <li class="nav-item" id="customer-in-cus">
                             <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './customer_admin.html';" >Customer</a>
                         </li>
                         <li class="nav-item" id="emp-in-cus">
-                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './employee_users.html';" >Employee</a>
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './employee_admin.html';" >Employee</a>
                         </li>
                         <li class="nav-item" id="sup-in-cus">
-                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './suppliers_users.html';" >Suppliers</a>
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './suppliers_admin.html';" >Suppliers</a>
                         </li>
                         <li class="nav-item" id="inventory-in-cus">
-                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = 'inventory_users.html';" >Inventory</a>
-                        </li>
-                        <li class="nav-item" id="sales-in-cus">
-                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './sales.html';" >Sales</a>
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './inventory_admin.html';" >Inventory</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -78,7 +78,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Male">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Male
                                     </label>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Female" checked>
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Female
                                     </label>
@@ -198,8 +198,5 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="module" src="./controller/customer_controller.js"></script>
-<script type="module" src="./controller/store_controller.js"></script>
-<script type="module" src="./controller/order_controller.js"></script>
-<script type="module" src="./controller/user_controller.js"></script>
 </body>
 </html>

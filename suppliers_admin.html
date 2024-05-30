@@ -30,8 +30,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="cursor: pointer">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item" id="customer-in-cus">
+                        <li class="nav-item" id="adminP-in-cus">
                             <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './admin_panel.html';" >Admin Panel</a>
+                        </li>
+                        <li class="nav-item" id="customer-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './customer_admin.html';" >Customer</a>
                         </li>
                         <li class="nav-item" id="emp-in-cus">
                             <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './employee_admin.html';" >Employee</a>
@@ -73,13 +76,13 @@
                     <div class="form-group">
                         <label>Category :</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="International">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 International
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Local" checked>
                             <label class="form-check-label" for="flexRadioDefault2">
                                 Local
                             </label>

@@ -30,8 +30,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="cursor: pointer">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item" id="customer-in-cus">
+                        <li class="nav-item" id="adminP-in-cus">
                             <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './admin_panel.html';" >Admin Panel</a>
+                        </li>
+                        <li class="nav-item" id="customer-in-cus">
+                            <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './customer_admin.html';" >Customer</a>
                         </li>
                         <li class="nav-item" id="emp-in-cus">
                             <a class="nav-link active text-light" aria-current="page" onclick="window.location.href = './employee_admin.html';" >Employee</a>
@@ -56,13 +59,55 @@
         <img id="previewImage" src="" class="rounded float-start m-2 border border-secondary bg-secondary" style="width: 200px; height: 200px; display: inline" alt="pro-pic">
         <form>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label for="itm-name">Description :</label>
-                        <input type="text" class="form-control border border-danger" id="itm-name" placeholder="" class="input">
+                        <label for="occasion">Occasion :</label>
+                        <select aria-label="Default select example" class="form-select border border-danger" id="occasion">
+                            <option value="Formal">Formal</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Sport">Sport</option>
+                        </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="verities">Category :</label>
+                        <select aria-label="Default select example" class="form-select border border-danger" id="verities">
+                            <option value="Heels">Heels</option>
+                            <option value="Flats">Flats</option>
+                            <option value="Wedges">Wedges</option>
+                            <option value="Flip Flops">Flip Flops</option>
+                            <option value="Sandals">Sandals</option>
+                            <option value="Shoes">Shoes</option>
+                            <option value="Slippers">Slippers</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Gender :</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" value="Male">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Male
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2" value="Female" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="itm-code">Code :</label>
                         <input type="text" class="form-control border border-danger" id="itm-code" placeholder="" class="input">
@@ -76,34 +121,52 @@
                         <input type="file" class="form-control border border-danger" id="fileInput">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label for="category">Category :</label>
-                        <select aria-label="Default select example" class="form-select border border-danger" id="category">
-                            <option value="Heels">Heels</option>
-                            <option value="Flats">Flats</option>
-                            <option value="Wedges">Wedges</option>
-                            <option value="Flip Flops">Flip Flops</option>
-                            <option value="Sandals">Sandals</option>
-                            <option value="Shoes">Shoes</option>
-                            <option value="Slippers">Slippers</option>
+                        <label for="cleaner">Shoe Cleaner :</label>
+                        <select aria-label="Default select example" class="form-select border border-danger" id="cleaner">
+                            <option value="SHMP">Shoe Shampoo</option>
+                            <option value="POLB"> Black Polish</option>
+                            <option value="POLBR">Brown Polish</option>
+                            <option value="POLDBR">Dark Brown Polish</option>
                         </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Socks :</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="socks" id="flexRadioDefault-s1" value="Half Socks">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Half Socks
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="socks" id="flexRadioDefault-s2" value="Full Socks" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Full Socks
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="itm-size">Size :</label>
-                        <input type="text" class="form-control border border-danger" id="itm-size" placeholder="" class="input">
+                        <label for="itm-name">Item Name :</label>
+                        <input type="text" class="form-control border border-danger" id="itm-name" placeholder="" class="input">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="sup-code">Supplier Code :</label>
-                        <select aria-label="Default select example" class="form-select border border-danger" id="sup-code">
-                            <option value=""></option>
-                        </select>
+                        <label for="itm-size">Size :</label>
+                        <input type="text" class="form-control border border-danger" id="itm-size" placeholder="" class="input">
                     </div>
                 </div>
             </div>
@@ -111,7 +174,9 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="sup-name">Supplier Name :</label>
-                        <input type="text" class="form-control border border-danger" id="sup-name" placeholder="" class="input">
+                        <select aria-label="Default select example" class="form-select border border-danger" id="sup-name">
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -144,7 +209,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="status">Status :</label>
+                        <label for="status">Quantity :</label>
                         <input type="text" class="form-control border border-danger" id="status" placeholder="" class="input">
                     </div>
                 </div>
@@ -170,13 +235,17 @@
             <tr>
                 <th scope="col">Description</th>
                 <th scope="col">Code</th>
+                <th scope="col">Occasion</th>
                 <th scope="col">Category</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Shoe Cleaner</th>
+                <th scope="col">Socks</th>
                 <th scope="col">Size</th>
-                <th scope="col">Supplier Code</th>
                 <th scope="col">Supplier Name</th>
                 <th scope="col">Sale Price</th>
                 <th scope="col">Buy Price</th>
                 <th scope="col">Expected Profit</th>
+                <th scope="col">Profit Margin</th>
                 <th scope="col">Status</th>
             </tr>
             </thead>
@@ -185,6 +254,7 @@
     </div>
 </div>
 <!--------------------------------------------------------------------------------------------------------------------->
+<script src="https://cdn.jsdelivr.net/npm/compressorjs@1.0.7/dist/compressor.min.js"></script>
 
 
 <script src="./assets/lib/jquary.min.js"></script>

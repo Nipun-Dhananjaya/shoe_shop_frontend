@@ -16,17 +16,17 @@ export const saveOrder = async (employee) => {
 export const getAllOrders = async () => {
     try {
         const response = await fetch(`http://localhost:8081/shop/api/v1/sales?action=all`);
-        const employees = await response.json();
-        return employees;
+        const orders = await response.json();
+        return orders;
     } catch (error) {
         console.error('Error :' + error);
     }
 }
-export const updateOrder = async (employee) => {
+export const updateOrder = async (order) => {
     try {
         const response = await fetch('http://localhost:8081/shop/api/v1/sales', {
             method: 'PUT',
-            body: JSON.stringify(employee),
+            body: JSON.stringify(order),
             headers: {
                 'Content-type': 'application/json',
             },

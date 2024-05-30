@@ -80,7 +80,10 @@ async function login(role) {
         showError("Invalid Email!");
         return;
     }
+    console.log(email)
+    console.log(password)
     const users = await getAllUsers();
+    console.log(users)
     let userFound = false;
 
     for (const item of users) {

@@ -2,6 +2,13 @@ import {deleteSupplier, getAllSupplier, saveSupplier, updateSupplier} from "../a
 import {SupplierModel} from "../model/SupplierModel.js";
 
 
+//regex pattern
+const namePattern = /^[A-Za-z\s\-']+$/;
+const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
+const addressPattern = /^[\dA-Za-z\s,.-]+$/;
+const phoneNumberPattern = /^(?:\+?\d{1,3})?[ -]?\(?(?:\d{3})\)?[ -]?\d{3}[ -]?\d{4}$/;
+const emailPattern = /^[a-zA-Z0-9_.-]+@[a-zA-Z]+\.[a-zA-Z]+$/;
+
 // clear inputs
 function clearInputs() {
     $("#con-01").val("");
@@ -10,26 +17,8 @@ function clearInputs() {
     $("#supplier-code").val("");
     $("#email").val("");
     $("#supplier-address").val("");
+    generateNextSuplierId();
 }
-
-// load all customers to table
-async function loadAll() {
-    const suppliers = await getAllSupplier();
-    $("#customer-t-body").empty();
-    suppliers.map((item, index) => {
-        let supplier =
-            `<tr><td class="sup-code">${item.supCode}</td><td class="sup-name">${item.supName}</td><td class="category">${item.category}</td><td class="address">${item.address}</td><td class="contactOne">${item.contactOne}</td><td class="contactTwo">${item.contactTwo}</td><td class="email">${item.email}</td></tr>`
-        $("#sup-t-body").append(supplier);
-    })
-}
-
-//regex pattern
-const namePattern = /^[A-Za-z\s\-']+$/;
-const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^[A-Za-z0-9'\/\.\,  ]{5,}$/;
-const phoneNumberPattern = /^(07[0125678]\d{7})$/;
-const emailPattern = /^[a-zA-Z0-9_.-]@([a-zA-Z]+)([\\.])([a-zA-Z]+)$/;
-
 //error alert
 function showError(message) {
     Swal.fire({
@@ -48,6 +37,14 @@ $("#s-save-btn").on('click', async () => {
     const address = $("#supplier-address").val();
     const category = $("input[name='flexRadioDefault']:checked").val();
 
+    console.log(supEmail)
+    console.log(address)
+    console.log(supContOne)
+    console.log(supContTwo)
+    console.log(supName)
+    console.log(supCode)
+    console.log(category)
+
     if (!supContOne || !supContTwo || !supName || !supCode || !supEmail || !address || !category) {
         showError("Please fill in all fields correctly.");
         return;
@@ -64,6 +61,7 @@ $("#s-save-btn").on('click', async () => {
     }
 
     if (!addressPattern.test(address)) {
+        console.log(addressPattern.test(address))
         showError("Enter a valid address.");
         return;
     }
@@ -142,13 +140,13 @@ $("#s-update-btn").on('click', async () => {
         return;
     }
 
-    const status=await updateSupplier(new SupplierModel(supCode, supName,category,address,supContOne,supContTwo,supEmail));
+    const status=await updateSupplier(supCode, new SupplierModel(supCode, supName,category,address,supContOne,supContTwo,supEmail));
 
     if (status === 200) {
         await Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Supplier saved successfully',
+            title: 'Supplier updated successfully',
             showConfirmButton: false,
             timer: 1500,
         });
@@ -156,7 +154,7 @@ $("#s-update-btn").on('click', async () => {
         await Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'Supplier not saved, please try again',
+            title: 'Supplier not updated, please try again',
             showConfirmButton: false,
             timer: 1500,
         });
@@ -166,21 +164,45 @@ $("#s-update-btn").on('click', async () => {
 });
 
 // delete customer
-$("#c-delete-btn").on('click', async () => {
+$("#s-delete-btn").on('click', async () => {
     const supCode = $("#supplier-code").val();
-    const response = await deleteSupplier(supCode);
-    if (200 == response) {
-        await Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Customer deleted successfully',
-            showConfirmButton: false,
-            timer: 1500,
-        });
+    console.log(supCode);
+    if (!supCode) {
+        showError("Please enter a supplier code.");
+        return;
     }
-    await loadAll();
-    clearInputs();
+    try {
+        const response = await deleteSupplier(supCode);
+        console.log(response);
+        if (response === 200) {
+            await Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Supplier deleted successfully',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            await loadAll();
+            clearInputs();
+        } else {
+            showError("Supplier not deleted, please try again.");
+        }
+    } catch (error) {
+        console.error(error);
+        showError("An error occurred while deleting the supplier.");
+    }
 });
+
+// load all customers to table
+async function loadAll() {
+    const suppliers = await getAllSupplier();
+    $("#sup-t-body").empty();
+    suppliers.map((item, index) => {
+        let supplier =
+            `<tr><td class="sup-code">${item.supCode}</td><td class="sup-name">${item.supName}</td><td class="category">${item.category}</td><td class="address">${item.address}</td><td class="contactOne">${item.contactOne}</td><td class="contactTwo">${item.contactTwo}</td><td class="email">${item.email}</td></tr>`
+        $("#sup-t-body").append(supplier);
+    })
+}
 
 // clicked raw set to input fields
 $("#sup-t-body").on('click', ("tr"), async function () {
@@ -228,11 +250,11 @@ $("#supplier-search-btn").on("click", async function () {
     })
 });
 
-function generateNextSuplierId() {
-    const suppliers = getAllSupplier();
-    if (suppliers.length===undefined){
+async function generateNextSuplierId() {
+    const suppliers = await getAllSupplier();
+    if (suppliers.length === undefined) {
         $("#supplier-code").val("S001");
-    }else{
+    } else {
         $("#supplier-code").val("S00" + (suppliers.length + 1));
     }
 }
@@ -246,3 +268,5 @@ $(document).ready(function () {
     loadAll();
     setInterval(supIdMakeReadonly,1000);
 });
+
+

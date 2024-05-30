@@ -22,9 +22,9 @@ export const getAllCustomers = async () => {
         console.error('Error :' + error);
     }
 }
-export const updateCustomer = async (customer) => {
+export const updateCustomer = async (id,customer) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/customer', {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?code=${id}`, {
             method: 'PUT',
             body: JSON.stringify(customer),
             headers: {
@@ -39,20 +39,11 @@ export const updateCustomer = async (customer) => {
 }
 export const deleteCustomer = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?code=${id}`, {
             method: 'DELETE',
         });
         return response.status;
     } catch (error) {
         console.log("error :" + error);
-    }
-}
-export const nextCustomerId = async () => {
-    try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?action=nextVal`);
-        const nextId = await response.text();
-        return nextId;
-    } catch (error) {
-        console.error('Error :' + error);
     }
 }

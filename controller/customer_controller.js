@@ -1,6 +1,13 @@
-// customer db
 import {CustomerModel} from "../model/CustomerModel.js";
 import {deleteCustomer, getAllCustomers, saveCustomer, updateCustomer} from "../api/Customer_api.js";
+
+//regex pattern
+const namePattern = /^[A-Za-z\s\-']+$/;
+const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
+const addressPattern = /^[\dA-Za-z\s,.-]+$/;
+const phoneNumberPattern = /^(?:\+?\d{1,3})?[ -]?\(?(?:\d{3})\)?[ -]?\d{3}[ -]?\d{4}$/;
+const emailPattern = /^[a-zA-Z0-9_.-]+@[a-zA-Z]+\.[a-zA-Z]+$/;
+let recentPurchase='';
 
 // clear inputs
 function clearInputs() {
@@ -11,25 +18,8 @@ function clearInputs() {
     $("#customer-search").val("");
     $("#customer-code").val("");
     $("#customer-email").val("");
+    generateNextCustomerId();
 }
-
-// load all customers to table
-async function loadAll() {
-    const customers = await getAllCustomers();
-    $("#customer-t-body").empty();
-    customers.map((item, index) => {
-        let customer =
-            `<tr><td class="customer-code">${item.code}</td><td class="customer-name">${item.name}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="level">${item.level}</td><td class="points">${item.totPoints}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td></tr>`
-        $("#customer-t-body").append(customer);
-    })
-}
-
-//regex pattern
-const namePattern = /^[A-Za-z\s\-']+$/;
-const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^[A-Za-z0-9'\/\.\,  ]{5,}$/;
-const phoneNumberPattern = /^(07[0125678]\d{7})$/;
-const emailPattern = /^[a-zA-Z0-9_.-]@([a-zA-Z]+)([\\.])([a-zA-Z]+)$/;
 
 //error alert
 function showError(message) {
@@ -43,7 +33,7 @@ function showError(message) {
 $("#c-save-btn").on('click', async () => {
     const customerCont = $("#customer-contact").val();
     const customerName = $("#customer-name").val();
-    const customerCode = $("#customer-code").val();
+    const customerCode = $("#customer-nic").val();
     const customerEmail = $("#customer-email").val();
     const address = $("#customer-address").val();
     const joindeDate = $("#customer-joined-date").val();
@@ -110,7 +100,7 @@ $("#c-save-btn").on('click', async () => {
 $("#c-update-btn").on('click', async () => {
     const customerCont = $("#customer-contact").val();
     const customerName = $("#customer-name").val();
-    const customerCode = $("#customer-code").val();
+    const customerCode = $("#customer-nic").val();
     const customerEmail = $("#customer-email").val();
     const address = $("#customer-address").val();
     const joindeDate = $("#customer-joined-date").val();
@@ -149,7 +139,7 @@ $("#c-update-btn").on('click', async () => {
         return;
     }
 
-    const status = await updateCustomer(new CustomerModel(customerCode, customerName, gender, joindeDate, level, points, dob, address, customerCont,customerEmail, new Date()));
+    const status = await updateCustomer(customerCode, new CustomerModel(customerCode, customerName, gender, joindeDate, level, points, dob, address, customerCont,customerEmail, recentPurchase));
 
     if (status === 200) {
         await Swal.fire({
@@ -174,7 +164,7 @@ $("#c-update-btn").on('click', async () => {
 
 // delete customer
 $("#c-delete-btn").on('click', async () => {
-    const customerCode = $("#customer-code").val();
+    const customerCode = $("#customer-nic").val();
     const response = await deleteCustomer(customerCode);
     if (200 == response) {
         await Swal.fire({
@@ -189,16 +179,40 @@ $("#c-delete-btn").on('click', async () => {
     clearInputs();
 });
 
+// load all customers to table
+async function loadAll() {
+    const customers = await getAllCustomers();
+    $("#customer-t-body").empty();
+    customers.map((item, index) => {
+        let customer =
+            `<tr><td class="customer-code">${item.code}</td><td class="customer-name">${item.name}</td><td class="gender">${item.gender}</td><td class="joined-date">${item.joinedDate}</td><td class="level">${item.level}</td><td class="points">${item.totPoints}</td><td class="dob">${item.dob}</td><td class="address">${item.address}</td><td class="contact">${item.contact}</td><td class="email">${item.email}</td></tr>`
+        $("#customer-t-body").append(customer);
+    })
+}
+
 // clicked raw set to input fields
-$("#customer-t-body").on('click', ("tr"), function () {
+$("#customer-t-body").on('click', ("tr"), async function () {
+    console.log($(this).find(".points").text())
     $("#customer-name").val($(this).find(".customer-name").text());
     $("#customer-nic").val($(this).find(".customer-code").text());
     $("#customer-address").val($(this).find(".address").text());
+    $("#customer-email").val($(this).find(".email").text());
     $("#customer-contact").val($(this).find(".contact").text());
     $("#customer-joined-date").val($(this).find(".joined-date").text());
-    $("#dob").val($(this).find(".dob").text());
-    $("#point").val($(this).find(".points").text());
+    $("#customer-dob").val($(this).find(".dob").text());
+    $("#point").val("0" + $(this).find(".points").text());
     $("#level").val($(this).find(".level").text());
+    if ($(this).find(".gender").text() === 'Male') {
+        $("#flexRadioDefault1").prop("checked", true);
+    } else {
+        $("#flexRadioDefault2").prop("checked", true);
+    }
+    const customers = await getAllCustomers();
+    customers.map((item, index) => {
+        if (item.code===$(this).find(".customer-code").text()){
+            recentPurchase=item.recentPurchase;
+        }
+    })
 });
 
 //search customer
@@ -227,22 +241,23 @@ $("#customer-search-btn").on("click", async function () {
 
 
 //generate next item id
-function generateNextCustomerId() {
-    const customers = getAllCustomers();
-    $("#cust-id").val("C00" + (customers.length + 1));
-    if (customers.length===undefined){
-        $("#emp-nic").val("C001");
-    }else{
-        $("#emp-nic").val("C00" + (customers.length + 1));
+async function generateNextCustomerId() {
+    const customers = await getAllCustomers();
+    console.log(customers.length)
+    if (customers.length === 0) {
+        $("#customer-nic").val("C001");
+    } else {
+        $("#customer-nic").val("C00" + (customers.length + 1));
     }
 }
 
-$(document).ready(function () {
+$(document).ready(async function () {
     function custIdMakeReadonly() {
-        $("#cust-id").prop("readonly",true);
+        $("#cust-id").prop("readonly", true);
     }
-    custIdMakeReadonly();
-    generateNextCustomerId();
+
+    await custIdMakeReadonly();
+    await generateNextCustomerId();
     loadAll();
-    setInterval(custIdMakeReadonly,1000);
+    setInterval(custIdMakeReadonly, 1000);
 });

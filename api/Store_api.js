@@ -15,16 +15,16 @@ export const saveItem = async (item) => {
 };
 export const getAllItem = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory?action=all`);
-        const employees = await response.json();
-        return employees;
+        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory`);
+        const inventories = await response.json();
+        return inventories;
     } catch (error) {
         console.error('Error :' + error);
     }
 }
-export const updateItem = async (item) => {
+export const updateItem = async (id,item) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/inventory', {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory?itemId=${id}`, {
             method: 'PUT',
             body: JSON.stringify(item),
             headers: {
@@ -39,20 +39,11 @@ export const updateItem = async (item) => {
 }
 export const deleteItem = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory?itemId=${id}`, {
             method: 'DELETE',
         });
         return response.status;
     } catch (error) {
         console.log("error :" + error);
-    }
-}
-export const nextItemId = async () => {
-    try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory?action=nextVal`);
-        const nextId = await response.text();
-        return nextId;
-    } catch (error) {
-        console.error('Error :' + error);
     }
 }

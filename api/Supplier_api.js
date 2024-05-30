@@ -15,22 +15,23 @@ export const saveSupplier = async (supplier) => {
 };
 export const getAllSupplier = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?action=all`);
-        const employees = await response.json();
-        return employees;
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier`);
+        const suppliers = await response.json();
+        return suppliers;
     } catch (error) {
         console.error('Error :' + error);
     }
 }
-export const updateSupplier = async (supplier) => {
+export const updateSupplier = async (id,supplier) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/supplier', {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?supCode=${id}`, {
             method: 'PUT',
             body: JSON.stringify(supplier),
             headers: {
                 'Content-type': 'application/json',
             },
         })
+        console.log(response)
         return response.status;
 
     } catch (error) {
@@ -39,20 +40,14 @@ export const updateSupplier = async (supplier) => {
 }
 export const deleteSupplier = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?id=${id}`, {
+        console.log('deleteA')
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?supCode=${id}`, {
             method: 'DELETE',
         });
+        console.log(response)
         return response.status;
     } catch (error) {
         console.log("error :" + error);
     }
 }
-export const nextSupplierId = async () => {
-    try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?action=nextVal`);
-        const nextId = await response.text();
-        return nextId;
-    } catch (error) {
-        console.error('Error :' + error);
-    }
-}
+
