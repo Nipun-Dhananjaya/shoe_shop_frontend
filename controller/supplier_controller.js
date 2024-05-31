@@ -5,7 +5,7 @@ import {SupplierModel} from "../model/SupplierModel.js";
 //regex pattern
 const namePattern = /^[A-Za-z\s\-']+$/;
 const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^(\d+\/\d+,\s)?(?:\w+\s)*\w+,\s*\w+(?:\s+\w+)?(?:,\s*\w+)?$/;
+const addressPattern = /^\d+\s[A-z]+\s[A-z]+(?:\s[A-z]+)?(?:,\s[A-z]+(?:\s[A-z]+)?)*(?:,\s[A-z]{2}\s\d{5})?$/;
 const phoneNumberPattern = /^(?:\+?\d{1,3})?[ -]?\(?(?:\d{3})\)?[ -]?\d{3}[ -]?\d{4}$/;
 const emailPattern = /^[a-zA-Z0-9_.-]+@[a-zA-Z]+\.[a-zA-Z]+$/;
 
@@ -60,11 +60,11 @@ $("#s-save-btn").on('click', async () => {
         return;
     }
 
-    if (!addressPattern.test(address)) {
+    /*if (!addressPattern.test(address)) {
         console.log(addressPattern.test(address))
         showError("Enter a valid address.");
         return;
-    }
+    }*/
 
     if (!phoneNumberPattern.test(supContOne) ||!phoneNumberPattern.test(supContTwo)) {
         showError("Enter a valid phone number (e.g., 0772461021).");
@@ -125,10 +125,10 @@ $("#s-update-btn").on('click', async () => {
         return;
     }
 
-    if (!addressPattern.test(address)) {
+    /*if (!addressPattern.test(address)) {
         showError("Enter a valid address.");
         return;
-    }
+    }*/
 
     if (!phoneNumberPattern.test(supContOne) ||!phoneNumberPattern.test(supContTwo)) {
         showError("Enter a valid phone number (e.g., 0772461021).");
@@ -215,14 +215,14 @@ $("#sup-t-body").on('click', ("tr"), async function () {
     $("#supplier-address").val($(this).find(".address").text());
 
     suppliers.map((item, index) => {
-        if (item.supCode.toLowerCase()===$("#supplier-code").val().toLowerCase()) {
-            if (item.gender==='Local'){
+        if (item.supCode===$("#supplier-code").val()) {
+            if (item.category==='Local'){
                 $("#flexRadioDefault2").prop("checked", true);
             }else{
                 $("#flexRadioDefault1").prop("checked", true);
             }
         }
-    })
+    });
 });
 
 //search customer

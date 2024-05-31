@@ -4,7 +4,7 @@ import {deleteCustomer, getAllCustomers, saveCustomer, updateCustomer} from "../
 //regex pattern
 const namePattern = /^[A-Za-z\s\-']+$/;
 const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^(\d+\/\d+,\s)?(?:\w+\s)*\w+,\s*\w+(?:\s+\w+)?(?:,\s*\w+)?$/;
+const addressPattern = /^\s*\S+(?:\s+\S+){2}/;
 const phoneNumberPattern = /^(?:\+?\d{1,3})?[ -]?\(?(?:\d{3})\)?[ -]?\d{3}[ -]?\d{4}$/;
 const emailPattern = /^[a-zA-Z0-9_.-]+@[a-zA-Z]+\.[a-zA-Z]+$/;
 let recentPurchase='';
@@ -57,10 +57,10 @@ $("#c-save-btn").on('click', async () => {
         return;
     }
 
-    if (!addressPattern.test(address)) {
+    /*if (!addressPattern.test(address)) {
         showError("Enter a valid address.");
         return;
-    }
+    }*/
 
     if (!phoneNumberPattern.test(customerCont)) {
         showError("Enter a valid phone number (e.g., 0772461021).");
@@ -124,10 +124,10 @@ $("#c-update-btn").on('click', async () => {
         return;
     }
 
-    if (!addressPattern.test(address)) {
+    /*if (!addressPattern.test(address)) {
         showError("Enter a valid address.");
         return;
-    }
+    }*/
 
     if (!phoneNumberPattern.test(customerCont)) {
         showError("Enter a valid phone number (e.g., 0772461021).");

@@ -1,5 +1,5 @@
 export class OrderModel {
-    constructor(ordId, ordDate, cust, items, payMethod,subtot, discount, cashierName) {
+    constructor(ordId, ordDate, cust, items, payMethod,subtot, discount, cashierName,ordStatus) {
         this.ordId = ordId;
         this.ordDate = ordDate;
         this.cust = cust;
@@ -8,5 +8,6 @@ export class OrderModel {
         this.subtot = subtot;
         this.discount = discount;
         this.cashierName = cashierName;
+        this.ordStatus = ordStatus;
     }
 }

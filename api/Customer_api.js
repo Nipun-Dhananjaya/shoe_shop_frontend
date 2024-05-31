@@ -31,6 +31,7 @@ export const updateCustomer = async (code,customer) => {
                 'Content-type': 'application/json',
             },
         })
+        console.log(response)
         return response.status;
 
     } catch (error) {
