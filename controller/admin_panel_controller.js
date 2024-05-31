@@ -9,9 +9,17 @@ $(document).ready(async function () {
     const orders = await getAllOrders();
     const items = await getAllItem();
 
-    orders.map((item, index) => {
-        if (item.ordDate===new Date()){
-            totSales=totSales+(parseFloat(item.subtot)-(parseFloat(item.subtot)*parseFloat(item.discount)));
+    orders.map((ord, index) => {
+        if (ord.ordDate===new Date()){
+            totSales=totSales+(parseFloat(ord.subtot)-(parseFloat(ord.subtot)*parseFloat(ord.discount)));
+            totProfit=totProfit+(parseFloat(ord.subtot)-(parseFloat(ord.subtot)*parseFloat(ord.discount)));
+            ord.items.map((itm, index) => {
+                items.map((item, index) => {
+                    if (itm.itemId===item.itemId){
+                        totProfit=totProfit+(parseFloat(item.subtot)-(parseFloat(item.subtot)*parseFloat(item.discount)));
+                    }
+                });
+            });
         }
     });
     $("#tot").text(totSales);

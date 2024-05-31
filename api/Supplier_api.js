@@ -22,9 +22,9 @@ export const getAllSupplier = async () => {
         console.error('Error :' + error);
     }
 }
-export const updateSupplier = async (id,supplier) => {
+export const updateSupplier = async (supCode,supplier) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?supCode=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier/${supCode}`, {
             method: 'PUT',
             body: JSON.stringify(supplier),
             headers: {
@@ -38,10 +38,10 @@ export const updateSupplier = async (id,supplier) => {
         console.log('Error :' + error)
     }
 }
-export const deleteSupplier = async (id) => {
+export const deleteSupplier = async (supCode) => {
     try {
         console.log('deleteA')
-        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier?supCode=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/supplier/${supCode}`, {
             method: 'DELETE',
         });
         console.log(response)

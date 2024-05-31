@@ -22,9 +22,9 @@ export const getAllItem = async () => {
         console.error('Error :' + error);
     }
 }
-export const updateItem = async (id,item) => {
+export const updateItem = async (itemId,item) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory?itemId=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory/${itemId}`, {
             method: 'PUT',
             body: JSON.stringify(item),
             headers: {
@@ -37,9 +37,9 @@ export const updateItem = async (id,item) => {
         console.log('Error :' + error)
     }
 }
-export const deleteItem = async (id) => {
+export const deleteItem = async (itemId) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory?itemId=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/inventory/${itemId}`, {
             method: 'DELETE',
         });
         return response.status;

@@ -22,9 +22,9 @@ export const getAllCustomers = async () => {
         console.error('Error :' + error);
     }
 }
-export const updateCustomer = async (id,customer) => {
+export const updateCustomer = async (code,customer) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?code=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/customer/${code}`, {
             method: 'PUT',
             body: JSON.stringify(customer),
             headers: {
@@ -37,9 +37,9 @@ export const updateCustomer = async (id,customer) => {
         console.log('Error :' + error)
     }
 }
-export const deleteCustomer = async (id) => {
+export const deleteCustomer = async (code) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/customer?code=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/customer/${code}`, {
             method: 'DELETE',
         });
         return response.status;

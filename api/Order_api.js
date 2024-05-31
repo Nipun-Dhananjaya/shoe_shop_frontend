@@ -22,9 +22,9 @@ export const getAllOrders = async () => {
         console.error('Error :' + error);
     }
 }
-export const updateOrder = async (order) => {
+export const updateOrder = async (ordId,order) => {
     try {
-        const response = await fetch('http://localhost:8081/shop/api/v1/sales', {
+        const response = await fetch('http://localhost:8081/shop/api/v1/sales/${ordId}', {
             method: 'PUT',
             body: JSON.stringify(order),
             headers: {
@@ -37,22 +37,13 @@ export const updateOrder = async (order) => {
         console.log('Error :' + error)
     }
 }
-export const deleteOrder = async (id) => {
+export const deleteOrder = async (ordId) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/sales?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/sales/${ordId}`, {
             method: 'DELETE',
         });
         return response.status;
     } catch (error) {
         console.log("error :" + error);
-    }
-}
-export const nextOrderId = async () => {
-    try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/sales?action=nextVal`);
-        const nextId = await response.text();
-        return nextId;
-    } catch (error) {
-        console.error('Error :' + error);
     }
 }

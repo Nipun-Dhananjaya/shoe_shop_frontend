@@ -23,9 +23,9 @@ export const getAllEmployees = async () => {
         console.error('Error :' + error);
     }
 }
-export const updateEmployee = async (id,employee) => {
+export const updateEmployee = async (empCode,employee) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?empCode=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/employee/${empCode}`, {
             method: 'PUT',
             body: JSON.stringify(employee),
             headers: {
@@ -38,9 +38,9 @@ export const updateEmployee = async (id,employee) => {
         console.log('Error :' + error)
     }
 }
-export const deleteEmployee = async (id) => {
+export const deleteEmployee = async (empCode) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/employee?empCode=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/employee/${empCode}`, {
             method: 'DELETE',
         });
         return response.status;

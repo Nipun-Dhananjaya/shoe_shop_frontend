@@ -40,23 +40,14 @@ export const updateUser = async (supplier) => {
         console.log('Error :' + error)
     }
 }
-export const deleteUser = async (id) => {
+export const deleteUser = async (email) => {
     try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/user?id=${id}`, {
+        const response = await fetch(`http://localhost:8081/shop/api/v1/user/${email}`, {
             method: 'DELETE',
         });
         return response.status;
     } catch (error) {
         console.log("error :" + error);
-    }
-}
-export const nextUserId = async () => {
-    try {
-        const response = await fetch(`http://localhost:8081/shop/api/v1/user?action=nextVal`);
-        const nextId = await response.text();
-        return nextId;
-    } catch (error) {
-        console.error('Error :' + error);
     }
 }
 

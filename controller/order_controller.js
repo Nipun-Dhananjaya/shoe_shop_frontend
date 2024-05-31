@@ -28,6 +28,24 @@ function showError(message) {
     });
 }
 
+//action on discount textfield
+$("#discount").on("keyup", function(event) {
+    if (event.keyCode === 13) {
+        let subtot=$("#subtot").text();
+        let discountAmount = (parseFloat(subtot) * parseFloat($("#discount").val())) / 100;
+        $("#tot").text(subtot - discountAmount);
+    }
+});
+//action on cash textfield
+$("#cash").on("keyup", function(event) {
+    if (event.keyCode === 13) {
+        let total=$("#tot").text();
+        console.log(parseFloat($("#cash").val()));
+        console.log(total);
+        $("#balance").val(parseFloat($("#cash").val())-parseFloat(total));
+    }
+});
+
 //check buying item is have in order list
 function isAlreadyBuying(itemId,newQty,price) {
     let index=order_items_db.findIndex(item => item.itemId === itemId);
@@ -56,28 +74,6 @@ async function generateNextOrderId() {
     } else {
         $("#ord-id").val("O00" + (orders.length + 1));
     }
-}
-
-
-function convertBase64ToFile(base64String, fileName) {
-    // Remove the data URL prefix if present
-    var base64WithoutPrefix = base64String.replace(/^data:[^;]+;base64,/, '');
-
-    // Convert the Base64 string to a Uint8Array
-    var binaryString = atob(base64WithoutPrefix);
-    var binaryLength = binaryString.length;
-    var bytes = new Uint8Array(binaryLength);
-    for (var i = 0; i < binaryLength; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-    }
-
-    // Create a Blob from the Uint8Array
-    var blob = new Blob([bytes], { type: 'image/jpeg' }); // Specify the appropriate MIME type here
-
-    // Create a File object from the Blob
-    var file = new File([blob], fileName, { type: 'image/jpeg' }); // Specify the appropriate MIME type here
-
-    return file;
 }
 
 // Function to dynamically create cards
@@ -285,25 +281,6 @@ $(document).ready(async function () {
 
     setOrdData();
     setInterval(setOrdData, 1000);
-});
-
-
-//action on discount textfield
-$("#discount").on("keyup", function(event) {
-    if (event.keyCode === 13) {
-        let subtot=$("#subtot").text();
-        let discountAmount = (parseFloat(subtot) * parseFloat($("#discount").val())) / 100;
-        $("#tot").text(subtot - discountAmount);
-    }
-});
-//action on cash textfield
-$("#cash").on("keyup", function(event) {
-    if (event.keyCode === 13) {
-        let total=$("#tot").text();
-        console.log(parseFloat($("#cash").val()));
-        console.log(total);
-        $("#balance").val(parseFloat($("#cash").val())-parseFloat(total));
-    }
 });
 
 //purchase order
@@ -666,3 +643,25 @@ $("#order-item-table-body").on('click', 'tr', async function () {
     await reduceItemCount($("#item-code").text(),$("#item-qty").val());
     $("#item-qty").val("");
 });*/
+
+
+/*function convertBase64ToFile(base64String, fileName) {
+    // Remove the data URL prefix if present
+    var base64WithoutPrefix = base64String.replace(/^data:[^;]+;base64,/, '');
+
+    // Convert the Base64 string to a Uint8Array
+    var binaryString = atob(base64WithoutPrefix);
+    var binaryLength = binaryString.length;
+    var bytes = new Uint8Array(binaryLength);
+    for (var i = 0; i < binaryLength; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    // Create a Blob from the Uint8Array
+    var blob = new Blob([bytes], { type: 'image/jpeg' }); // Specify the appropriate MIME type here
+
+    // Create a File object from the Blob
+    var file = new File([blob], fileName, { type: 'image/jpeg' }); // Specify the appropriate MIME type here
+
+    return file;
+}*/
