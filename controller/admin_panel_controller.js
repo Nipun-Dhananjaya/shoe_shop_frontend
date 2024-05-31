@@ -4,6 +4,7 @@ import {getAllItem} from "../api/Store_api";
 let orderLst=[]
 let itmLst=[]
 let totSales=0;
+let totSpending=0;
 let totProfit=0;
 $(document).ready(async function () {
     const orders = await getAllOrders();
@@ -12,17 +13,18 @@ $(document).ready(async function () {
     orders.map((ord, index) => {
         if (ord.ordDate===new Date()){
             totSales=totSales+(parseFloat(ord.subtot)-(parseFloat(ord.subtot)*parseFloat(ord.discount)));
-            totProfit=totProfit+(parseFloat(ord.subtot)-(parseFloat(ord.subtot)*parseFloat(ord.discount)));
             ord.items.map((itm, index) => {
                 items.map((item, index) => {
                     if (itm.itemId===item.itemId){
-                        totProfit=totProfit+(parseFloat(item.subtot)-(parseFloat(item.subtot)*parseFloat(item.discount)));
+                        totSpending=totSpending+parseFloat(item.buyPrice)*itm.qtv;
                     }
                 });
             });
+            totProfit=totProfit+(parseFloat(totSales)-(parseFloat(totSales)));
         }
     });
     $("#tot").text(totSales);
+    $("#subtot").text(totProfit);
     items.map((item, index) => {
         if (item.ordDate===new Date()){
             totSales=totSales+(parseFloat(item.subtot)-(parseFloat(item.subtot)*parseFloat(item.discount)));

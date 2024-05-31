@@ -11,13 +11,13 @@ import {getAllEmployees} from "../api/Employee_api.js";
 // clear inputs
 function clearInputs() {
     $("#cust-name").val("");
-        $("#cust-loyalty-level").val("");
-        $("#cust-points").val("");
-        $("#balance").val("");
-        $("#discount").val("");
-        $("#cash").val("");
-        $("#subtot").text("0.00 /=");
-        $("#tot").text("0.00 /=");
+    $("#cust-loyalty-level").val("");
+    $("#cust-points").val("");
+    $("#balance").val("");
+    $("#discount").val("");
+    $("#cash").val("");
+    $("#subtot").text("0.00 /=");
+    $("#tot").text("0.00 /=");
     generateNextOrderId();
     $("#order-item-table-body").empty();
 }
