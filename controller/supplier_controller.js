@@ -5,7 +5,7 @@ import {SupplierModel} from "../model/SupplierModel.js";
 //regex pattern
 const namePattern = /^[A-Za-z\s\-']+$/;
 const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^[\dA-Za-z\s,.-]+$/;
+const addressPattern = /^(\d+\/\d+,\s)?(?:\w+\s)*\w+,\s*\w+(?:\s+\w+)?(?:,\s*\w+)?$/;
 const phoneNumberPattern = /^(?:\+?\d{1,3})?[ -]?\(?(?:\d{3})\)?[ -]?\d{3}[ -]?\d{4}$/;
 const emailPattern = /^[a-zA-Z0-9_.-]+@[a-zA-Z]+\.[a-zA-Z]+$/;
 

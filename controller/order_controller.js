@@ -6,108 +6,26 @@ import {getAllCustomers, updateCustomer} from "../api/Customer_api.js";
 import {getAllOrders, saveOrder} from "../api/Order_api.js";
 import {CustomerModel} from "../model/CustomerModel.js";
 import {OrderModel} from "../model/OrderModel.js";
+import {getAllEmployees} from "../api/Employee_api.js";
 
-let itemLst=[];
+// clear inputs
+function clearInputs() {
+    $("#cust-name").val("");
+        $("#cust-loyalty-level").val("");
+        $("#cust-points").val("");
+        $("#balance").val("");
+        $("#discount").val("");
+        $("#cash").val("");
+        $("#subtot").text("0.00 /=");
+        $("#tot").text("0.00 /=");
+    generateNextOrderId();
+}
 
 function showError(message) {
     Swal.fire({
         icon: 'error',
         text: message,
     });
-}
-
-//realtime date date input
-$(document).ready(function () {
-    function updateInputs() {
-        $("#ord-id").prop("readonly", true);
-        $("#ord-date").prop("readonly", true);
-        $("#cust-name").prop("readonly", true);
-        $("#cust-loyalty-level").prop("readonly", true);
-        $("#cust-points").prop("readonly", true);
-        $("#balance").prop("readonly", true);
-    }
-    function updateDropdowns() {
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
-        var day = now.getDate().toString().padStart(2, '0'); // Add leading zero if needed
-
-        var formattedDate = `${year}-${month}-${day}`;
-
-        $("#ord-date").val(formattedDate);
-
-        const customers=getAllCustomers();
-
-        var dropdownMenuCust = document.getElementById('dropdown-menu-cusID');
-        var existingItems = {}; // Object to store existing items
-
-        // Clear previous dropdown items
-        dropdownMenuCust.innerHTML = "";
-
-        customers.forEach(function(item) {
-            if (!existingItems[item.code]) {
-                existingItems[item.code] = true;
-                var listItem = document.createElement('li');
-                var anchor = document.createElement('a');
-                anchor.href = '#';
-                anchor.classList.add('dropdown-item');
-                anchor.textContent = item.code;
-
-                listItem.appendChild(anchor);
-
-                dropdownMenuCust.appendChild(listItem);
-
-                anchor.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    var selectedValue = this.dataset.value;
-                    var selectedItem = this.textContent;
-                    document.getElementById('cust-id').textContent = selectedItem;
-                    $("#cust-name").val(item.name);
-                    $("#cust-loyalty-level").val(item.level);
-                    $("#cust-points").val(item.totPoints);
-                });
-            }
-        });
-    }
-    updateInputs();
-    generateNextOrderId();
-    updateDropdowns();
-    setInterval(updateInputs, 1000);
-    setInterval(updateDropdowns, 1000);
-
-    async function setOrdData() {
-        var queryParams = new URLSearchParams(window.location.search);
-        var ordId = queryParams.get('ordId');
-
-        const orders = await getAllOrders();
-        orders.map((item, index) => {
-            if (item.ordId.toLowerCase() === ordId.toLowerCase()) {
-                $("#ord-id").val(ordId);
-                $("#ord-date").val(item.ordDate);
-                $("#cust-id").val(item.cust.code);
-                $("#cust-name").val(item.cust.name);
-                $("#cust-loyalty-level").val(item.cust.level);
-                $("#cust-points").val(item.cust.totPoints);
-                $("#discount").val(item.discount);
-                $("#subtot").text(item.subtot);
-                $("#tot").text(parseFloat(item.subtot)*parseFloat(item.discount)/100)
-            }
-        })
-    }
-    setOrdData();
-    setInterval(setOrdData, 1000);
-});
-
-// clear inputs
-function clearInputs() {
-    $("#cust-name").val(""),
-    $("#cust-loyalty-level").val(""),
-    $("#cust-points").val(""),
-    $("#balance").val(""),
-    $("#discount").val(""),
-    $("#cash").val(""),
-    $("#subtot").text("0.00 /="),
-    $("#tot").text("0.00 /=")
 }
 
 //check buying item is have in order list
@@ -121,10 +39,23 @@ function isAlreadyBuying(itemId,newQty,price) {
     return false; // item not in past list
 }
 
+//reduce item count
+async function reduceItemCount(itemId, Qty) {
+    const items = await getAllItem();
+    items.map((item, index) => {
+        if (item.itemId.toLowerCase() === itemId.toLowerCase()) {
+            const status = updateItem(new ItemModel(itemId, item.itemName, item.picture, item.category, item.size, item.supplierCode, item.supplierName, item.salePrice, item.buyPrice, item.expectedProfit, item.profitMargin, (parseFloat(item.qtv)-parseFloat(Qty))));
+        }
+    });
+}
 //generate next order-id
 async function generateNextOrderId() {
     const orders = await getAllOrders();
-    $("#ord-id").val("O00" + (orders.length + 1));
+    if (orders.length === undefined) {
+        $("#customer-nic").val("O001");
+    } else {
+        $("#ord-id").val("O00" + (orders.length + 1));
+    }
 }
 
 
@@ -151,13 +82,11 @@ function convertBase64ToFile(base64String, fileName) {
 
 // Function to dynamically create cards
 let total=0;
-function createCards(data) {
+function createCards(itemLst) {
     const container = document.getElementById('card-container');
     container.innerHTML = ''; // Clear existing content
 
-    data.forEach(item => {
-
-
+    itemLst.forEach(item => {
         const cardHtml = `
             <div class="col m-2" style="width: 16rem;">
                 <div class="card" style="width: 14rem;">
@@ -173,23 +102,44 @@ function createCards(data) {
                     </ul>
                 </div>
             </div>
-            `;
+        `;
 
-        var convertedFile = convertBase64ToFile(item.image, "picture");
-
-        // Set the converted file back to the file input field
-        var newFileInput = $(".card-img-top")[0];
-        newFileInput.files = [convertedFile];
-
+        // Insert the card HTML into the DOM
         container.insertAdjacentHTML('beforeend', cardHtml);
+
+        // Now set the image source for the newly created card
+        const cards = container.querySelectorAll('.card');
+        const lastCard = cards[cards.length - 1];
+        const imgElement = lastCard.querySelector('.card-img-top');
+
+        const base64String = item.image;
+
+        // Optional: Convert base64 string to a Blob
+        function base64ToBlob(base64, contentType) {
+            const byteCharacters = atob(base64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            return new Blob([byteArray], { type: contentType });
+        }
+
+        // Get the base64 data (assuming it's a base64 string without the prefix)
+        const base64Data = base64String.split(",")[1];
+        const blob = base64ToBlob(base64Data, "image/jpeg"); // Change the content type if necessary
+
+        // Create a URL for the blob and set it as the src for the image
+        const url = URL.createObjectURL(blob);
+        imgElement.src = url;
     });
+
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach((button, index) => {
         button.addEventListener('click', async () => {
             // Handle button click action here
-            //alert(`Added ${data[index].name} to cart`);
-            if (!isAlreadyBuying(data[index].code, 1, data[index].price) === true) {
-                order_items_db.push(new OrderItemModel(data[index].code, data[index].name, 1, (parseFloat(data[index].price))));
+            if (!isAlreadyBuying(itemLst[index].code, 1, itemLst[index].price) === true) {
+                order_items_db.push(new OrderItemModel(itemLst[index].code, itemLst[index].name, itemLst[index].size, 1, (parseFloat(itemLst[index].price))));
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -198,40 +148,145 @@ function createCards(data) {
                     timer: 1500
                 });
                 total = parseFloat($("#subtot").text());
-                total += (parseFloat(data[index].price) * 1);
+                total += (parseFloat(itemLst[index].price) * 1);
                 $("#subtot").text(total);
 
                 await loadAllItems();
-                await reduceItemCount(data[index].code, 1);
+                await reduceItemCount(itemLst[index].code, 1);
+                $("#order-item-table-body").empty();
+                order_items_db.map((item, index) => {
+                    let employee =
+                        `<tr><td class="code">${item.itemId}</td><td class="name">${item.itemName}</td><td class="size">${item.size}</td><td class="qty">${item.qtv}</td><td class="price">${item.price}</td></tr>`
+                    $("#order-item-table-body").append(employee);
+                })
             }
         });
     });
     $("#cat-name").val($("#category-lst").val());
 }
+
+$('#category-lst').on('change', function() {
+    loadAllItems();
+});
+
 // load all order items
 async function loadAllItems() {
+    let itemLst=[];
     const items = await getAllItem();
-    items.map((item, index) => {
-        if (item.category===$("#category").val()){
-            const itm={code:item.itemId,name:item.itemName,image:item.picture,price:item.buyPrice,size:item.size};
+    await items.map((item, index) => {
+        if (item.category===$("#category-lst").val()){
+            const itm={code:item.itemId,name:item.itemName,image:item.picture,price:item.salePrice,size:item.size};
             itemLst.push(itm);
-        }else if($("#category").val()==="All"){
-            const itm={code:item.itemId,name:item.itemName,image:item.picture,price:item.buyPrice,size:item.size};
+        }else if ($("#category-lst").val()==='All'){
+            const itm={code:item.itemId,name:item.itemName,image:item.picture,price:item.salePrice,size:item.size};
             itemLst.push(itm);
+        }else{
+            itemLst.length=0;
         }
     });
-    createCards(itemLst);
+    await createCards(itemLst);
 }
 
-//reduce item count
-async function reduceItemCount(itemId, Qty) {
-    const items = await getAllItem();
-    items.map((item, index) => {
-        if (item.itemId.toLowerCase() === itemId.toLowerCase()) {
-            const status = updateItem(new ItemModel(itemId, item.itemName, item.picture, item.category, item.size, item.supplierCode, item.supplierName, item.salePrice, item.buyPrice, item.expectedProfit, item.profitMargin, (parseFloat(item.qtv)-parseFloat(Qty))));
-        }
-    });
-}
+//realtime date date input
+$(document).ready(async function () {
+    function updateInputs() {
+        $("#ord-id").prop("readonly", true);
+        $("#ord-date").prop("readonly", true);
+        $("#cust-name").prop("readonly", true);
+        $("#cust-loyalty-level").prop("readonly", true);
+        $("#cust-points").prop("readonly", true);
+        $("#balance").prop("readonly", true);
+    }
+
+    async function loadUsers() {
+        const employees = await getAllEmployees();
+        const selectElement = document.getElementById('cashier-name');
+
+        // Iterate through the array and create option elements
+        employees.forEach(employee => {
+            const option = document.createElement('option');
+            option.value = employee.empName;
+            option.textContent = employee.empName;
+            selectElement.appendChild(option);
+        });
+    }
+
+    async function updateDropdowns() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
+        var day = now.getDate().toString().padStart(2, '0'); // Add leading zero if needed
+
+        var formattedDate = `${year}-${month}-${day}`;
+
+        $("#ord-date").val(formattedDate);
+
+        const customers = await getAllCustomers();
+
+        var dropdownMenuCust = document.getElementById('dropdown-menu-cusID');
+        var existingItems = {}; // Object to store existing items
+
+        // Clear previous dropdown items
+        dropdownMenuCust.innerHTML = "";
+
+        customers.forEach(function (item) {
+            if (!existingItems[item.code]) {
+                existingItems[item.code] = true;
+                var listItem = document.createElement('li');
+                var anchor = document.createElement('a');
+                anchor.href = '#';
+                anchor.classList.add('dropdown-item');
+                anchor.textContent = item.code;
+
+                listItem.appendChild(anchor);
+
+                dropdownMenuCust.appendChild(listItem);
+
+                anchor.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var selectedValue = this.dataset.value;
+                    var selectedItem = this.textContent;
+                    document.getElementById('cust-id').textContent = selectedItem;
+                    $("#cust-name").val(item.name);
+                    $("#cust-loyalty-level").val(item.level);
+                    $("#cust-points").val(item.totPoints);
+                });
+            }
+        });
+    }
+
+    await loadAllItems();
+    updateInputs();
+    generateNextOrderId();
+    updateDropdowns();
+    loadUsers();
+    setInterval(updateInputs, 1000);
+    setInterval(updateDropdowns, 1000);
+
+    async function setOrdData() {
+        var queryParams = new URLSearchParams(window.location.search);
+        var ordId = queryParams.get('ordId');
+
+        const orders = await getAllOrders();
+        orders.map((item, index) => {
+            if (item.ordId.toLowerCase() === ordId.toLowerCase()) {
+                $("#ord-id").val(ordId);
+                $("#ord-date").val(item.ordDate);
+                $("#cust-id").val(item.cust.code);
+                $("#cust-name").val(item.cust.name);
+                $("#cust-loyalty-level").val(item.cust.level);
+                $("#cust-points").val(item.cust.totPoints);
+                $("#discount").val(item.discount);
+                $("#subtot").text(item.subtot);
+                $("#tot").text(parseFloat(item.subtot) * parseFloat(item.discount) / 100)
+            }
+        })
+    }
+
+    setOrdData();
+    setInterval(setOrdData, 1000);
+});
+
 
 //action on discount textfield
 $("#discount").on("keyup", function(event) {
@@ -252,7 +307,7 @@ $("#cash").on("keyup", function(event) {
 });
 
 //purchase order
-$("#purchase").on('click', async () => {
+/*$("#purchase").on('click', async () => {
     if(order_items_db.length===0) {
         showError("Item list is empty");
         return;
@@ -307,10 +362,10 @@ $("#purchase").on('click', async () => {
     generateNextOrderId();
     order_items_db.length=0;
     loadAllItems();
-});
+});*/
 
 //Update order
-$("#update-ord").on('click', async () => {
+/*$("#update-ord").on('click', async () => {
     if(order_items_db.length===0) {
         showError("Item list is empty");
         return;
@@ -349,9 +404,9 @@ $("#update-ord").on('click', async () => {
     generateNextOrderId();
     order_items_db.length=0;
     loadAllItems();
-});
+});*/
 //Delete order
-$("#delete-ord").on('click', async () => {
+/*$("#delete-ord").on('click', async () => {
     order_api.splice(order_api.findIndex(item => item.ordId === $("#ord-id").val()),1)
     await Swal.fire({
         position: 'center',
@@ -364,10 +419,10 @@ $("#delete-ord").on('click', async () => {
     generateNextOrderId();
     order_items_db.length=0;
     loadAllItems();
-});
+});*/
 
 //Search Order
-$("#all-order-search").on("input", function () {
+/*$("#all-order-search").on("input", function () {
     $("#all-order-tbl").empty();
     var tableBody = document.getElementById("all-order-tbl");
     var html = "";
@@ -433,8 +488,8 @@ $("#all-order-search").on("input", function () {
             $("#all-order-window").css("display","none");
         });
     });
-});
-$("#ord-search-btn").on("click", function () {
+});*/
+/*$("#ord-search-btn").on("click", function () {
     $("#all-order-tbl").empty();
     var tableBody = document.getElementById("all-order-tbl");
     var html = "";
@@ -498,10 +553,10 @@ $("#ord-search-btn").on("click", function () {
             $("#all-order-window").css("display","none");
         });
     });
-});
+});*/
 
 //purchase item
-$("#all-orders-btn").on('click', async () => {
+/*$("#all-orders-btn").on('click', async () => {
     const orders=await getAllOrders();
     var tableBody = document.getElementById("all-order-tbl");
     var html = "";
@@ -548,9 +603,9 @@ $("#all-orders-btn").on('click', async () => {
             window.location.href = "sales.html?ordId=" + ordId;
         });
     });
-});
+});*/
 //clicked raw set to input fields
-let item_id;
+/*let item_id;
 $("#order-item-table-body").on('click', 'tr', async function () {
     item_id = $(this).find(".item-id").text();
     let index=item_db.findIndex(item => item.itemId === item_id);
@@ -568,7 +623,7 @@ $("#order-item-table-body").on('click', 'tr', async function () {
     $("#tot").text(tot);
     order_api[indexOfOrdDb].total=tot;
     await loadAllItems();
-});
+});*/
 //add item
 /*$(".add-to-cart").on('click', async () => {
 

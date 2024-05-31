@@ -4,7 +4,7 @@ import {EmployeeModel} from "../model/EmployeeModel.js";
 //regex pattern
 const namePattern = /^[A-Za-z\s\-']+$/;
 const nameLengthPattern = /^[A-Za-z\s\-']{3,20}$/;
-const addressPattern = /^[\dA-Za-z\s,.-]+$/;
+const addressPattern = /^(\d+\/\d+,\s)?(?:\w+\s)*\w+,\s*\w+(?:\s+\w+)?(?:,\s*\w+)?$/;
 const phoneNumberPattern = /^(?:\+?\d{1,3})?[ -]?\(?(?:\d{3})\)?[ -]?\d{3}[ -]?\d{4}$/;
 const emailPattern = /^[a-zA-Z0-9_.-]+@[a-zA-Z]+\.[a-zA-Z]+$/;
 
@@ -202,9 +202,9 @@ async function loadAll() {
 
 //update customer
 $("#e-update-btn").on('click', async () => {
-    const empCont = $("#emp-contact").val();
+    const empCont = $("#emp-cont").val();
     const empName = $("#emp-name").val();
-    const empCode = $("#emp-code").val();
+    const empCode = $("#emp-nic").val();
     const empEmail = $("#emp-email").val();
     const address = $("#emp-address").val();
     const joindeDate = $("#emp-joined-date").val();
@@ -217,22 +217,22 @@ $("#e-update-btn").on('click', async () => {
     const branch = $("#branch").val();
     const gender = $("input[name='flexRadioDefault']:checked").val();
 
-    console.log(empCont)
-    console.log(empName)
-    console.log(empCode)
-    console.log(empEmail)
-    console.log(address)
-    console.log(joindeDate)
-    console.log(dob)
-    console.log(guardian)
-    console.log(guardianCont)
-    console.log(eStatus)
-    console.log(role)
-    console.log(branch)
-    console.log(gender)
+    console.log(empCont);
+    console.log(empName);
+    console.log(empCode);
+    console.log(empEmail);
+    console.log(address);
+    console.log(joindeDate);
+    console.log(dob);
+    console.log(guardian);
+    console.log(guardianCont);
+    console.log(eStatus);
+    console.log(role);
+    console.log(branch);
+    console.log(gender);
 
     if (!empCont || !empName || !address || !empCode || !empEmail || !joindeDate || !dob) {
-        showError("Please fill in all fields correctly.");
+        showError("Please fill all fields correctly.");
         return;
     }
 
@@ -330,17 +330,24 @@ $("#emp-t-body").on('click', ("tr"), async function () {
     $("#emp-nic").val($(this).find(".emp-code").text());
     $("#emp-email").val($(this).find(".email").text());
     $("#emp-address").val($(this).find(".address").text());
-    $("#emp-contact").val($(this).find(".contact").text());
+    $("#emp-cont").val($(this).find(".contact").text());
     $("#emp-joined-date").val($(this).find(".joined-date").text());
-    $("#dob").val($(this).find(".dob").text());
+    $("#emp-dob").val($(this).find(".dob").text());
     $("#role").val($(this).find(".accessRole").text());
     $("#designation").val($(this).find(".designation").text());
     $("#guardian-name").val($(this).find(".guardian").text());
     $("#guardian-contact").val($(this).find(".guardianCont").text());
     $("#status").val($(this).find(".status").text());
+    $("#branch").val($(this).find(".branch").text());
     employees.forEach((item) => {
-        if (item.empCode.toLowerCase()===$(this).find(".emp-code").text()) {
-            var base64String = item.picture;
+        if (item.empCode===$(this).find(".emp-code").text()) {
+            console.log($(this).find(".emp-code").text())
+            if (item.gender==='Male'){
+                $("#flexRadioDefault1").prop("checked", true);
+            }else{
+                $("#flexRadioDefault2").prop("checked", true);
+            }
+            var base64String = item.proPic;
 
             // Optional: Convert base64 string to a Blob
             function base64ToBlob(base64, contentType) {
@@ -370,12 +377,6 @@ $("#emp-t-body").on('click', ("tr"), async function () {
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
             $("#fileInput")[0].files = dataTransfer.files;
-
-            if (item.gender==='Male'){
-                $("#flexRadioDefault1").prop("checked", true);
-            }else{
-                $("#flexRadioDefault2").prop("checked", true);
-            }
         }
     });
 
