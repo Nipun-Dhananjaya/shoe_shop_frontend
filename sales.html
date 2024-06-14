@@ -48,7 +48,7 @@
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="img-fluid logo-img m-2" alt="login" >
+                        <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="img-fluid logo-img m-2" alt="login" onclick="window.location.href = './index.html';" >
                     </form>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                                         <button id="cust-id" class="btn dropdown-toggle border border-danger col-md-12 bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Click Here To Select
                                         </button>
-                                        <ul id="dropdown-menu-cusID" class="dropdown-menu col-md-12 " aria-labelledby="item-code">
+                                        <ul id="dropdown-menu-cusID" class="dropdown-menu col-md-12 " aria-labelledby="cust-id">
                                             <!-- Options will be dynamically added here -->
                                         </ul>
                                     </div>
@@ -312,9 +312,6 @@
     });
 </script>
 
-
-<script type="module" src="./controller/customer_controller.js"></script>
-<script type="module" src="./controller/store_controller.js"></script>
 <script type="module" src="./controller/order_controller.js"></script>
 </body>
 </html>

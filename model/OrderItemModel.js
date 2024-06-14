@@ -3,7 +3,7 @@ export class OrderItemModel {
         this.itemId = itemId;
         this.itemName = itemName;
         this.size = size;
-        this.qtv = qtv;
+        this.quantity = qtv;
         this.price = price;
     }
 }

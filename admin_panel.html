@@ -50,7 +50,7 @@
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="img-fluid logo-img m-2" alt="login" >
+                        <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="img-fluid logo-img m-2" alt="login" onclick="window.location.href = './index.html';">
                     </form>
                 </div>
             </div>
@@ -64,42 +64,24 @@
                 <div class="col-md-6">
                     <div class="form-group d-flex">
                         <input type="date" class="form-control border border-danger" id="all-order-search" placeholder="" class="input">
-                        <button class="btn btn-outline-success ms-3" type="submit" id="ord-search-btn">Search</button>
+                        <button class="btn btn-outline-success ms-3" id="ord-search-btn">Search</button>
                     </div>
                 </div>
             </div>
         </form>
-        <!--<div class="col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card m-5" style="width: 18rem;">
-                        <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="card-img-top" alt="top sales">
-                        <div class="card-body">
-                            <h3 class="card-title">Top sales shoes</h3>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Item Qty</li>
-                            <li class="list-group-item">On Hand Qty</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>-->
 
         <div class="col-md-12 mt-4">
             <div class="container-sm mt-1 p-1">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card m-5" style="width: 18rem;">
-                            <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" class="card-img-top" alt="top sales">
+                            <img src="./assets/images/hello-shoes-high-resolution-logo-white.png" id="previewImage" class="card-img-top" alt="top sales">
                             <div class="card-body">
-                                <h3 class="card-title">Top sales shoes</h3>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <h3 class="card-title" id="card-title">Top sales shoes</h3>
+                                <p class="card-text" id="card-text">Some quick example text </p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Item Qty</li>
-                                <li class="list-group-item">On Hand Qty</li>
+                                <li class="list-group-item" id="qty">Item Qty</li>
                             </ul>
                         </div>
                     </div>
@@ -133,9 +115,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script type="module" src="./controller/customer_controller.js"></script>
-<script type="module" src="./controller/store_controller.js"></script>
-<script type="module" src="./controller/order_controller.js"></script>
-<script type="module" src="./controller/user_controller.js"></script>
+<script type="module" src="./controller/admin_panel_controller.js"></script>
 </body>
 </html>
